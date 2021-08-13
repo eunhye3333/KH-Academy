@@ -80,6 +80,27 @@ public class A_If {
 		}
 	}
 	
+	public void method1_1() {
+		// 키보드로 입력한 숫자가 양수인지 음수인지 출력 (switch문으로 변경해보기)
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("숫자 한 개 입력 : ");
+		int num = sc.nextInt();
+		
+		if(num > 0) {
+			System.out.println("입력하신 숫자는 양수입니다");
+		} else if(num == 0) {
+			System.out.println("입력하신 숫자는 0입니다");
+		} else {
+			System.out.println("입력하신 숫자는 음수입니다");
+		}
+		
+//		switch (num) {
+//		case num > 0 : // 에러 남. 정수, 문자, 문자열만 들어갈 수 있기 때문에 boolean은 들어갈 수 없음
+//		// switch문에서 범위로 조건 판단하는 것은 불가능하기 때문에 바꿀 수 없다
+//		}
+	}
+	
 	public void method2() {
 		// 키보드로 입력한 숫자가 짝수인지 홀수인지 출력
 		Scanner sc = new Scanner(System.in);
@@ -145,6 +166,26 @@ public class A_If {
 		}
 	}
 	
+	public void method3_1() {
+		// 사용자에게 주민번호를 받아서 여자인지 남자인지 판별 (switch문으로 변경해보기)
+		Scanner sc = new Scanner(System.in);
+		System.out.print("주민번호 입력(-포함) : ");
+		char pId = sc.nextLine().charAt(7);
+		
+		switch(pId) {
+		case '1' :
+		case '3' :
+			System.out.println("남자입니다");
+			break;
+		case '2' :
+		case '4' :
+			System.out.println("여자입니다");
+			break;
+		default :
+			System.out.println("잘못 입력하셨습니다");
+			
+		} // switch로 변경 가능
+	}
 	
 	
 }

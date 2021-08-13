@@ -336,4 +336,77 @@ public class ControlPractice {
 			System.out.println("없는 번호를 입력하였습니다.");
 		}
 	}
+	
+	public void practice11() {
+		// 4자리 정수를 입력받아 중복값이 없는 비밀번호 만들기
+		Scanner sc = new Scanner(System.in);
+		System.out.print("비밀번호 입력(1000~9999) : ");
+		// 풀이 방법 1.
+		// 패스워드를 정수로 받아와 연산을 통해 각 자리 숫자를 저장한 후 if문을 이용해 같은 숫자인지 판별
+		int pwd = sc.nextInt();
+		
+		if((pwd - 10000) >= 0){
+			System.out.println("자리수 안 맞음");
+		} else {
+			int pw1 = pwd / 1000;
+			int pw2 = (pwd - (pw1 * 1000)) / 100;
+			int pw3 = (pwd - (pw1 * 1000) - (pw2 * 100)) / 10;
+			int pw4 = (pwd - (pw1 * 1000) - (pw2 * 100) - (pw3 * 10));
+			
+			if(pw1 == pw2 || pw1 == pw3 || pw1 == pw4 || pw2 == pw3 || pw2 == pw4 || pw3 == pw4) {
+				System.out.println("실패");
+			} else {
+				System.out.println("성공");
+			}
+		}
+		
+		
+		// 풀이 방법 2. 
+		// 패스워드를 문자열로 받아와 char로 바꾼 후 if문을 사용해 같은 숫자인지 판별
+//		String strpwd = sc.nextLine();
+//		char pw1 = strpwd.charAt(0);
+//		char pw2 = strpwd.charAt(1);
+//		char pw3 = strpwd.charAt(2);
+//		char pw4 = strpwd.charAt(3);
+		
+//		int pwd = Integer.parseInt(strpwd);
+		
+//		if((pwd - 10000) >= 0 ) {
+//			System.out.println("자리수 안 맞음");
+//		} else if (pw1 == pw2 || pw1 == pw3 || pw1 == pw4 || pw2 == pw3 || pw2 == pw4 || pw3 == pw4) {
+//			System.out.println("실패");
+//		} else {
+//			System.out.println("성공");
+//		}
+		
+		// 풀이 방법 3.
+		// 패스워드를 문자열로 받아와 char로 바꾼 후 if문을 이용해 같은 숫자인지 판별
+		// if문의 조건식이 너무 길어져서 for문을 사용해 반복
+//		String strpwd = sc.nextLine();
+//		
+//		int pwd = Integer.parseInt(strpwd);
+//		
+//		if ((pwd - 10000) >= 0) {
+//			System.out.println("자리수 안 맞음");
+//		} else {
+//			boolean result = false;
+//			for (int i = 0; i < 4; i++) {
+//				for (int j = i + 1; j < 4; j++) {
+//					if (strpwd.charAt(i) == strpwd.charAt(j)) {
+//						i = 4;
+//						result = true;
+//						break;
+//					}
+//				}
+//				
+//			}
+//			
+//			if(result) {
+//				System.out.println("실패");
+//			} else {
+//				System.out.println("성공");
+//			}
+//		}
+
+	}
 }

@@ -103,6 +103,36 @@ public class B_Switch {
 		// flag를 처음부터 true로 값을 줬으면 if(flag)로 하면 됨. 하지만 false로 준 이유는 boolean의 기본값이 false이기 때문.
 	}
 	
+	public void method2_1() { // if문으로 바꿔 주기
+		System.out.println("***** 신우네 과일 가게 *****");
+		System.out.println("사과, 바나나, 복숭아, 키위 있습니다! 가격 편하게 물어보세요!");
+		System.out.print("어떤 과일의 가격이 궁금하세요?");
+		
+		Scanner sc = new Scanner(System.in);
+		String fruit = sc.nextLine();
+		
+		int price = 0; 
+		boolean flag = false; 
+		
+		if (fruit.equals("사과")) {
+			price = 1000;
+		} else if (fruit.equals("바나나")) {
+			price = 3000;
+		} else if (fruit.equals("복숭아")) {
+			price = 2000;
+		} else if (fruit.equals("키위")) {
+			price = 5000;
+		} else {
+			System.out.println("그 과일은 신우네 과일 가게에 없습니다 ㅠㅠ 옆에 신우 마트로 가 보세요!");
+			flag = true;
+		}
+		
+		if(!flag) { 
+			System.out.println(fruit + "의 가격은 " + price + "원입니다.");
+		}
+		
+	}
+	
 	public void method3() {
 		// 1부터 12까지 입력받아 해당하는 달의 마지막 날짜 출력하기
 		Scanner sc = new Scanner(System.in);
