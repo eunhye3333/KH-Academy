@@ -203,6 +203,7 @@ public class LoopPractice {
 		for(int i = 1; i < 10; i++) {
 			System.out.printf("%d * %d = %2d%n", dan, i, dan*i);
 			// 오른쪽 정렬
+			//
 		}
 		
 	}
