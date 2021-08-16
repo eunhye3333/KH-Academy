@@ -203,8 +203,152 @@ public class LoopPractice {
 		for(int i = 1; i < 10; i++) {
 			System.out.printf("%d * %d = %2d%n", dan, i, dan*i);
 			// 오른쪽 정렬
-			//
 		}
 		
+	}
+	
+	public void practice9() {
+		// 입력받은 숫자의 단 출력
+		Scanner sc = new Scanner(System.in);
+		System.out.print("숫자 : ");
+		int dan = sc.nextInt();
+		
+		if(dan > 9) {
+			System.out.println("9 이하의 숫자만 입력해 주세요");
+		} else {
+			for(; dan < 10; dan++) {
+				System.out.println("======== " + dan + "단 ========");
+				for(int i = 1; i < 10; i++) {
+					System.out.printf("%d * %d = %d%n", dan, i, dan * i);
+				}
+			}
+			
+		}
+	}
+	
+	public void practice10() {
+		// 잘못 입력했을 경우 다시 입력
+		Scanner sc = new Scanner(System.in);
+		int dan = 0;
+		while(dan < 2 || dan > 9) {
+			System.out.print("숫자 : ");
+			dan = sc.nextInt();
+			if (dan < 2 || dan > 9) {
+				System.out.println("2 이상, 9 이하의 숫자만 입력해 주세요.");
+			}
+		}
+		
+		for(; dan < 10; dan++) {
+			System.out.println("======== " + dan + "단 ========");
+			for(int i = 1; i < 10; i++) {
+				System.out.printf("%d * %d = %d%n", dan, i, dan * i);
+			}
+		}
+	}
+	
+	public void practice11() {
+		// 시작 숫자와 공차를 입력받아 일정한 값으로 숫자가 커지거나 작아지게 하세요
+		// 출력되는 숫자 -> 10개
+		Scanner sc = new Scanner(System.in);
+		System.out.print("시작 숫자 : ");
+		int start = sc.nextInt();
+		System.out.print("공차 : ");
+		int gap = sc.nextInt();
+		
+//		for(int i = 0; i < 10; i++) {
+//			System.out.print(start + gap * i + " ");
+//		}
+		
+		
+		// 변수 선언 없이
+		int end = start + 10 * gap;
+		for(; start < end; start += gap) {
+//		for(; start < start + 10 * gap; start += gap) { // 하면 안 됨
+			System.out.print(start + " ");
+		}
+	}
+	
+	public void practice12() {
+		// 정수 두 개와 연산자를 입력받아 알맏은 결과 출력
+		Scanner sc = new Scanner(System.in);
+		
+		while(true) {
+			System.out.print("연산자(+, -, *, /, %) : ");
+			String op= sc.next();
+			
+			System.out.print("정수  1 : ");
+			int num1 = sc.nextInt();
+			System.out.print("정수 2 : ");
+			int num2 = sc.nextInt();
+			
+			switch(op) {
+			case "+" :
+				System.out.printf("%d %s %d = %d", num1, op, num2, num1 + num2);
+				return;
+			case "-" :
+				System.out.printf("%d %s %d = %d", num1, op, num2, num1 - num2);
+				return;
+			case "*" :
+				System.out.printf("%d %s %d = %d", num1, op, num2, num1 * num2);
+				return;
+			case "/" :
+				if (num2 == 0) {
+					System.out.println("0으로는 나눌 수 없습니다. 다시 입력해주세요.");
+				} else {
+					System.out.printf("%d %s %d = %d", num1, op, num2, num1 / num2);
+					return;
+				}
+				break;
+			case "%" :
+				if (num2 == 0) {
+					System.out.println("0으로는 나눌 수 없습니다. 다시 입력해주세요.");
+				} else {
+					System.out.printf("%d %s %d = %d", num1, op, num2, num1 % num2);
+					return;
+				}
+				break;
+			case "exit":
+				System.out.println("프로그램을 종료합니다.");
+				return;
+			default :
+				System.out.println("없는 연산자입니다. 다시 입력해주세요.");
+			}
+		}
+	}
+	
+	public void practice13() {
+		// 별 찍기
+		Scanner sc = new Scanner(System.in);
+		System.out.print("정수 입력 : ");
+		int line = sc.nextInt();
+		
+		for(int i = 1; i <= line; i++) {
+			for(int j = 0; j < i; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+	
+	public void practice14() {
+		// 별 찍기 (역으로)
+		Scanner sc = new Scanner(System.in);
+		System.out.print("정수 입력 : ");
+		int line = sc.nextInt();
+		
+//		for(int i = line; i > 0; i--) {
+//			for(int j = i; j > 0; j--) {
+//				System.out.print("*");
+//			}
+//			System.out.println();
+//		}
+		
+		// 변수 선언 없이
+		for(; line > 0; line--) {
+			for(int j = line; j > 0; j--) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
 	}
 }
