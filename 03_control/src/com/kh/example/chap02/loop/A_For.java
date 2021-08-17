@@ -194,9 +194,12 @@ public class A_For {
 //		}
 		Scanner sc = new Scanner(System.in);
 		System.out.print("출력할 줄 수를 입력하세요 : ");
-		int num = sc.nextInt();
+		int row = sc.nextInt();
 		
-		for(int i = 0; i < num; i++) {
+		// 별을 하나씩 찍으려면 for문 하나로는 부족 -> 중첩 for문 필요
+		// 큰 for문은 줄 출력, 작은 for문에서 별 출
+		
+		for(int i = 0; i < row; i++) {
 			for(int j = 0; j < 5; j++) {
 				System.out.print("*");
 			}
@@ -229,7 +232,7 @@ public class A_For {
 				if(i == j) {
 					System.out.print(j);
 				} else {
-					System.out.print("*");
+					System.out.print('*');
 				}
 			}
 			System.out.println();

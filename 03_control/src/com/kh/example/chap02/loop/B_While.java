@@ -220,4 +220,85 @@ public class B_While {
 			} 
 		} while(true);
 	}
+	
+	public void method7() {
+		// 한 줄에 별표(*)가 5번 출력되는데 그 줄은 사용자가 입력한 수만큼 출력
+		// 그러나 한 번에 별표가 하나씩만 출력되어야 함
+		// for문 method8 while로 바꾸기
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("출력할 줄 수를 입력하세요 : ");
+		int row = sc.nextInt();
+		
+		int i = 0;
+		while(i < row) {
+			int j = 0;
+			while(j < 5) {
+				System.out.print('*');
+				j++;
+			}
+			System.out.println();
+			i++;
+		}
+	}
+	
+	public void method8() {
+		// 한 줄에 별표 문자를 입력된 줄 수와 칸 수만큼 출력
+		// 단, 줄 수와 칸 수가 일치하는 위치에는 줄 번호에 대한 정수 출력
+		// for문 method9 while로 바꾸기
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("출력할 줄 수를 입력하세요 : ");
+		int row = sc.nextInt();
+		System.out.print("출력할 칸 수를 입력하세요 : ");
+		int col = sc.nextInt();
+		
+		int i = 1;
+		while(i <= row) {
+			int j = 1;
+			while (j <= col) {
+				if(i == j) {
+					System.out.print(i);
+				} else {
+					System.out.print('*');
+				}
+				j++;
+			}
+			System.out.println();
+			i++;
+		}
+	}
+	
+	public void method9() {
+		// 키보드로 문자열 값을 입력받아 출력 반복 실행
+		// exit가 들어가면 반복 종료 -> exit가 아니면 계속 진행
+		Scanner sc = new Scanner(System.in);
+		
+//		String str = null; // 초기화 시 보통 기본값으로 초기화함
+		// String 뿐 아니라 모든 클래스 자료형(참조 자료형)의 기본값은 null
+		// null -> 아무것도없는 값 (진공 상태)
+		// 잔공 상태로 바로 사용하면 null을 참조하여 에러가 생김
+		String str = ""; // null과 완전 다름. 비어 있는 값을 주는 것.
+		while(!str.equals("exit")) {
+			System.out.print("문자열 입력 : ");
+			str = sc.nextLine();
+			System.out.println("str : " + str);
+		}
+	}
+	
+	public void method10() {
+		// do~while
+		Scanner sc = new Scanner(System.in);
+		
+		String str = null; // 여기에서는 null이어도 null pointer exception이 안 뜸
+		// do 부분을 먼저 실행한 후 조건식을 확인하기 때문에 str에 있는 null이 날아가고 내가 입력한 문자열이 들어감
+		// 따라서 str에 null이 남아있다
+		// 만약 문자열 입력에 null을 입력하여도 제대로 실행됨
+		// -> 이것은 진짜 null이 아니라 String인 "null"이기 때문에 의미 없음
+		do {
+			System.out.print("문자열 입력 : ");
+			str = sc.nextLine();
+			System.out.println("str : " + str);
+		} while (!str.equals("exit"));
+	}
 }
