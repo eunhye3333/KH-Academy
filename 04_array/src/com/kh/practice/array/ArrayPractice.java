@@ -278,7 +278,8 @@ public class ArrayPractice {
 			index[i] = 1;
 
 		}
-
+		
+		
 		for (int i = 0; i < ch.length; i++) {
 			for (int j = 0; j < i; j++) {
 				if (ch[i] == ch[j]) {
@@ -287,12 +288,20 @@ public class ArrayPractice {
 			}
 		}
 		int count = 0;
-		
-		System.out.print("문자열에 있는 문자 : ");
+		char[] newCh = new char[ch.length];
 		for (int i = 0; i < ch.length; i++) {
 			if (index[i] == 1) {
-				System.out.print(ch[i] + ", "); // 쉼표 제거하기
+				newCh[count] = ch[i];
 				count++;
+			}
+		}
+
+		System.out.print("문자열에 있는 문자 : ");
+		newCh = Arrays.copyOf(newCh, count);
+		for (int i = 0; i < newCh.length; i++) {
+			System.out.print(newCh[i]);
+			if(i < newCh.length -1) {
+				System.out.print(", ");
 			}
 		}
 		
