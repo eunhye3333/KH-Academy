@@ -272,79 +272,78 @@ public class ArrayPractice {
 		String str = sc.nextLine();
 		char[] ch = new char[str.length()];
 		int[] index = new int[ch.length];
-		
-		
-		for(int i = 0; i < ch.length; i++) {
+
+		for (int i = 0; i < ch.length; i++) {
 			ch[i] = str.charAt(i);
 			index[i] = 1;
-			
+
 		}
-		
-		for(int i = 0; i < ch.length; i++) {
-			for(int j = 0; j < i; j++) {
-				if(ch[i] == ch[j]) {
+
+		for (int i = 0; i < ch.length; i++) {
+			for (int j = 0; j < i; j++) {
+				if (ch[i] == ch[j]) {
 					index[i] = 0;
 				}
 			}
 		}
 		int count = 0;
+		
 		System.out.print("문자열에 있는 문자 : ");
-		for(int i = 0; i < ch.length; i++) {
-			if(index[i] == 1) {
-				System.out.print(ch[i] + ", "); // 마지막에 쉼표 없애는 법
+		for (int i = 0; i < ch.length; i++) {
+			if (index[i] == 1) {
+				System.out.print(ch[i] + ", "); // 쉼표 제거하기
 				count++;
 			}
 		}
+		
 		System.out.println();
 		System.out.println("문자 개수 : " + count);
 	}
+	
 	
 	public void practice16() {
 		// 입력한 배열의 길이만큼 문자열 할당 및 문자열 입력
 		Scanner sc = new Scanner(System.in);
 		System.out.print("배열의 크기를 입력하세요 : ");
 		int size = sc.nextInt();
-		
+		int num = 0;
 		String[] strArr = new String[size];
-		
-		for(int i = 0; i < size; i++) {
-			System.out.print(i+1 + "번째 문자열 : ");
+		String[] newArr;
+
+		for (int i = 0; i < size; i++) {
+			System.out.print(i + 1 + "번째 문자열 : ");
 			strArr[i] = sc.next();
 		}
-
-		int msize = 0;
-		String[] arr =  new String[strArr.length];
 		
-		while(true) {
+		while (true) {
 			System.out.print("더 값을 입력하시겠습니까?(Y/N) : ");
 			char re = sc.next().charAt(0);
-			switch(re) {
-			case 'y':
-			case 'Y':
-				System.out.print("더 입력하고 싶은 개수 : ");
-				msize = sc.nextInt();
-				arr = Arrays.copyOf(strArr, size);
-				
-				for(int i = size; i < msize; i++) {
-					System.out.print(i + "번째 문자열 : ");
-					arr[i] = sc.next();
-				}
-				break;
-			case 'n':
-			case 'N':
+			
+
+			if (re == 'n' || re == 'N') {
 				System.out.print("[");
-				for(int i = 0; i < msize; i++) {
-					System.out.print(arr[i]);
-					if (i == msize -1) {
-						System.out.print("]");
-					} else {
+				for (int i = 0; i < strArr.length; i++) {
+					System.out.print(strArr[i]);
+					if(i < strArr.length - 1) {
 						System.out.print(", ");
 					}
 				}
+				System.out.print("]");
 				return;
+			}
+			System.out.print("더 입력하고 싶은 개수 : ");
+			num = sc.nextInt();
+			
+			newArr = strArr;
+			strArr = new String[size + num];
+			for(int i = 0; i < strArr.length; i++) {
+				if (i < newArr.length) {
+					strArr[i] = newArr[i];
+				} else {
+					System.out.print(i + 1 + "번째 문자열 : ");
+					strArr[i] = sc.next();
+				}
 				
-			default:
-				System.out.print("다시 입력하세요 : ");
 			}
 		}
 	}
