@@ -134,12 +134,44 @@ public class ControlPractice {
 		System.out.print("비밀번호 : ");
 		String userPwd = sc.nextLine();
 		
-		if(id.equals(userId) && pwd.equals(userPwd)) {
-			System.out.println("로그인 성공");
-		} else if (id.equals(userId)) {
-			System.out.println("비밀번호가 틀렸습니다.");
+//		if(id.equals(userId) && pwd.equals(userPwd)) {
+//			// 아이디와 패스워드가 모두 같은 경우에만 if문 수행
+//			System.out.println("로그인 성공");
+//		} else if (id.equals(userId)) {
+//			// 아이디가 같고 패스워드가 다른 경우, 아이디가 다르고 패스워드가 같은 경우, 둘 다 다른 경우 중
+//			// else if로 아이디가 같고 패스뤄드가 다른 경우를 수행
+//			System.out.println("비밀번호가 틀렸습니다.");
+//		} else if (pwd.equals(userPwd)) {
+//			// 아이디가 다르고 패스워드가 같은 경우, 둘 다 다른 경우 중
+//			// else if로 아이디가 다르고 패스워드가 같은 경우를 수행
+//			System.out.println("아이디가 틀렸습니다.");
+//		}
+		
+		// equals 확인
+//		if("myId".equals(userId) && "myPassword12".equals(userPwd)) {
+//			System.out.println("로그인 성공");
+//		} else if ("myId".equals(userId)) {
+//			System.out.println("비밀번호가 틀렸습니다.");
+//		} else if ("myPassword12".equals(userPwd)) {
+//			System.out.println("아이디가 틀렸습니다.");
+//		} else {
+//			System.out.println("아이디와 비밀번호가 모두 틀렸습니다.");
+//		}
+		
+		// 중첩 if문 사용
+		if(id.equals(userId)) {
+			if(pwd.equals(userPwd)) {
+				System.out.println("로그인 성공");
+			} else {
+				System.out.println("비밀번호가 틀렸습니다.");
+			}
 		} else {
-			System.out.println("아이디가 틀렸습니다.");
+			if(pwd.equals(userPwd)) {
+				System.out.println("아이디가 틀렸습니다.");
+			} else {
+				System.out.println("아이디와 비밀번호가 모두 틀렸습니다.");
+			}
+			
 		}
 
 	}
@@ -150,15 +182,28 @@ public class ControlPractice {
 		System.out.print("권한을 확인하고자 하는 회원 등급 : ");
 		String level = sc.nextLine();
 		
+//		switch(level) {
+//		case "관리자" :
+//			System.out.println("회원관리, 게시글 관리, 게시글 작성, 게시글 조회, 댓글 작성");
+//			break;
+//		case "회원" :
+//			System.out.println("게시글 작성, 게시글 조회, 댓글 작성");
+//			break;
+//		case "비회원" :
+//			System.out.println("게시글 조회");
+//			break;
+//		default :
+//			System.out.println("등급을 잘못 입력하였습니다.");
+//		}
+
+		// 다른 방법
 		switch(level) {
 		case "관리자" :
-			System.out.println("회원관리, 게시글 관리, 게시글 작성, 게시글 조회, 댓글 작성");
-			break;
+			System.out.print("회원관리, 게시글 관리 ");
 		case "회원" :
-			System.out.println("게시글 작성, 게시글 조회, 댓글 작성");
-			break;
+			System.out.print("게시글 작성, 댓글 작성 ");
 		case "비회원" :
-			System.out.println("게시글 조회");
+			System.out.print("게시글 조회");
 			break;
 		default :
 			System.out.println("등급을 잘못 입력하였습니다.");
@@ -196,7 +241,7 @@ public class ControlPractice {
 	}
 	
 	public void practice8() {
-		// 키보드로 두 개의 정수와 연산 기호를 입력받아 연산 기호에 맞춰 션산 결과를 입력하세요
+		// 키보드로 두 개의 정수와 연산 기호를 입력받아 연산 기호에 맞춰 연산 결과를 입력하세요
 		Scanner sc = new Scanner(System.in);
 		System.out.print("피연산자1 입력 : ");
 		int num1 = sc.nextInt();
@@ -368,9 +413,9 @@ public class ControlPractice {
 //		char pw2 = strpwd.charAt(1);
 //		char pw3 = strpwd.charAt(2);
 //		char pw4 = strpwd.charAt(3);
-		
+//		
 //		int pwd = Integer.parseInt(strpwd);
-		
+//		
 //		if((pwd - 10000) >= 0 ) {
 //			System.out.println("자리수 안 맞음");
 //		} else if (pw1 == pw2 || pw1 == pw3 || pw1 == pw4 || pw2 == pw3 || pw2 == pw4 || pw3 == pw4) {

@@ -138,7 +138,7 @@ public class EmployeeMenu {
 	public void printEmp() {
 		// 데이터를 출력하는 메소드
 		if(ec.inform() == null) {
-			System.out.println("사원 데이더가 없습니다.");
+			System.out.println("사원 데이터가 없습니다.");
 		} else {
 			System.out.println(ec.inform());
 		}

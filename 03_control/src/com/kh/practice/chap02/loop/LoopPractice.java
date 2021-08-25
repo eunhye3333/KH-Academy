@@ -272,90 +272,91 @@ public class LoopPractice {
 		Scanner sc = new Scanner(System.in);
 
 		// 방법 1
-//		while(true) {
-//			System.out.print("연산자(+, -, *, /, %) : ");
-//			String op= sc.next();
-//			
-//			System.out.print("정수  1 : ");
-//			int num1 = sc.nextInt();
-//			System.out.print("정수 2 : ");
-//			int num2 = sc.nextInt();
-//			
-//			switch(op) {
-//			case "+" :
-//				System.out.printf("%d %s %d = %d", num1, op, num2, num1 + num2);
-//				return;
-//			case "-" :
-//				System.out.printf("%d %s %d = %d", num1, op, num2, num1 - num2);
-//				return;
-//			case "*" :
-//				System.out.printf("%d %s %d = %d", num1, op, num2, num1 * num2);
-//				return;
-//			case "/" :
-//				if (num2 == 0) {
-//					System.out.println("0으로는 나눌 수 없습니다. 다시 입력해주세요.");
-//				} else {
-//					System.out.printf("%d %s %d = %d", num1, op, num2, num1 / num2);
-//					return;
-//				}
-//				break;
-//			case "%" :
-//				if (num2 == 0) {
-//					System.out.println("0으로는 나눌 수 없습니다. 다시 입력해주세요.");
-//				} else {
-//					System.out.printf("%d %s %d = %d", num1, op, num2, num1 % num2);
-//					return;
-//				}
-//				break;
-//			case "exit":
-//				System.out.println("프로그램을 종료합니다.");
-//				return;
-//			default :
-//				System.out.println("없는 연산자입니다. 다시 입력해주세요.");
-//			}
-//		}
-
-		// 방법 2
-		String op = "";
-		while (!op.equals("exit")) {
+		while(true) {
 			System.out.print("연산자(+, -, *, /, %) : ");
-			op = sc.next();
-
+			String op= sc.next();
+			
 			System.out.print("정수  1 : ");
 			int num1 = sc.nextInt();
 			System.out.print("정수 2 : ");
 			int num2 = sc.nextInt();
-
-			switch (op) {
-			case "+":
+			
+			switch(op) {
+			case "+" :
 				System.out.printf("%d %s %d = %d", num1, op, num2, num1 + num2);
-				break;
-			case "-":
+				return;
+			case "-" :
 				System.out.printf("%d %s %d = %d", num1, op, num2, num1 - num2);
-				break;
-			case "*":
+				return;
+			case "*" :
 				System.out.printf("%d %s %d = %d", num1, op, num2, num1 * num2);
-				break;
-			case "/":
+				return;
+			case "/" :
 				if (num2 == 0) {
 					System.out.println("0으로는 나눌 수 없습니다. 다시 입력해주세요.");
 				} else {
 					System.out.printf("%d %s %d = %d", num1, op, num2, num1 / num2);
-					break;
+					return;
 				}
 				break;
-			case "%":
+			case "%" :
 				if (num2 == 0) {
 					System.out.println("0으로는 나눌 수 없습니다. 다시 입력해주세요.");
 				} else {
 					System.out.printf("%d %s %d = %d", num1, op, num2, num1 % num2);
-					break;
+					return;
 				}
 				break;
-			default:
+			case "exit":
+				System.out.println("프로그램을 종료합니다.");
+				return;
+			default :
 				System.out.println("없는 연산자입니다. 다시 입력해주세요.");
 			}
 		}
+
+		// 방법 2
+		// 처음에 exit 입력 시 탈출이 안 됨
+//		String op = "";
+//		while (!op.equals("exit")) {
+//			System.out.print("연산자(+, -, *, /, %) : ");
+//			op = sc.next();
+//
+//			System.out.print("정수  1 : ");
+//			int num1 = sc.nextInt();
+//			System.out.print("정수 2 : ");
+//			int num2 = sc.nextInt();
+//
+//			switch (op) {
+//			case "+":
+//				System.out.printf("%d %s %d = %d", num1, op, num2, num1 + num2);
+//				break;
+//			case "-":
+//				System.out.printf("%d %s %d = %d", num1, op, num2, num1 - num2);
+//				break;
+//			case "*":
+//				System.out.printf("%d %s %d = %d", num1, op, num2, num1 * num2);
+//				break;
+//			case "/":
+//				if (num2 == 0) {
+//					System.out.println("0으로는 나눌 수 없습니다. 다시 입력해주세요.");
+//				} else {
+//					System.out.printf("%d %s %d = %d", num1, op, num2, num1 / num2);
+//					break;
+//				}
+//				break;
+//			case "%":
+//				if (num2 == 0) {
+//					System.out.println("0으로는 나눌 수 없습니다. 다시 입력해주세요.");
+//				} else {
+//					System.out.printf("%d %s %d = %d", num1, op, num2, num1 % num2);
+//					break;
+//				}
+//				break;
+//			default:
+//				System.out.println("없는 연산자입니다. 다시 입력해주세요.");
+//			}
+//		}
 	}
 
 	public void practice13() {

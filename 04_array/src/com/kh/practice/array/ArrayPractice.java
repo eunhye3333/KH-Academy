@@ -233,7 +233,6 @@ public class ArrayPractice {
 			System.out.print(arr[i] + " ");
 		}
 
-		
 	}
 	
 	public void practice14() {
@@ -318,10 +317,12 @@ public class ArrayPractice {
 		int num = 0;
 		String[] strArr = new String[size];
 		String[] newArr;
+		
+		sc.nextLine();
 
 		for (int i = 0; i < size; i++) {
 			System.out.print(i + 1 + "번째 문자열 : ");
-			strArr[i] = sc.next();
+			strArr[i] = sc.nextLine();
 		}
 		
 		while (true) {
@@ -343,6 +344,8 @@ public class ArrayPractice {
 			System.out.print("더 입력하고 싶은 개수 : ");
 			num = sc.nextInt();
 			
+			sc.nextLine();
+			
 			newArr = strArr;
 			strArr = new String[size + num];
 			for(int i = 0; i < strArr.length; i++) {
@@ -350,7 +353,7 @@ public class ArrayPractice {
 					strArr[i] = newArr[i];
 				} else {
 					System.out.print(i + 1 + "번째 문자열 : ");
-					strArr[i] = sc.next();
+					strArr[i] = sc.nextLine();
 				}
 				
 			}
