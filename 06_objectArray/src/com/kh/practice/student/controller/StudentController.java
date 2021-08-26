@@ -16,9 +16,6 @@ public class StudentController {
 	
 	public Student[] printStudent() {
 		// 객체 배열에 있는 데이터 반환
-		for(int i = 0; i < sArr.length; i++) {
-			System.out.println(sArr[i].inform());
-		}
 		return sArr;
 	}
 	
