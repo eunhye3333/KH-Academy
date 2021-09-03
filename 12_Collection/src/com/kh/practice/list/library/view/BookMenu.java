@@ -83,6 +83,7 @@ public class BookMenu {
 			for(int i = 0 ; i < bookList.size(); i++) {
 				System.out.println(bookList.get(i));
 			}
+//			System.out.println(bookList); // 가로로 출력됨
 		}
 		
 	}
