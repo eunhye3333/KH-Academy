@@ -27,14 +27,16 @@ public class LotteryController {
 	}
 
 	public HashSet<Lottery> winObject() {
-		ArrayList<Lottery> winList = new ArrayList<Lottery>(lottery);
-		for(int i = 0; i < 4;) {
-			if(winList.get(i) != null) {
-				win.add(winList.get(i));
-				i++;
+		ArrayList<Lottery> list = new ArrayList<Lottery>(lottery);
+		if(lottery.size() < 4) {
+			return null;
+		} else {
+			while(win.size() != 4) {
+				int num = (int)(Math.random() * lottery.size());
+				win.add(list.get(num));
 			}
+			return win;
 		}
-		return win;
 	}
 
 	public TreeSet<Lottery> sortedWinObject() {

@@ -1,5 +1,6 @@
 package com.kh.practice.set.view;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -84,7 +85,12 @@ public class LotteryMenu {
 	}
 
 	public void winObject() {
-		System.out.println(lc.winObject());
+		HashSet<Lottery> win = lc.winObject();
+		if(win != null) {
+			System.out.println(win);
+		} else {
+			System.out.println("추첨자 수가 4명 미만이므로 진행할 수 없습니다.");
+		}
 	}
 
 	public void sortedWinObject() {
