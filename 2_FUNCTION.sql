@@ -460,3 +460,11 @@ FROM EMPLOYEE;
 SELECT MAX(SALARY), MAX(EMAIL), MAX(HIRE_DATE)
 FROM EMPLOYEE;
 
+-- COUNT 
+-- COUNT(컬럼명) : NULL이 제외된 해당 컬럼에 대한 개수 리턴
+-- COUNT(DISTINCT 컬럼명) : 중복이 제거된 행 개수 리턴
+-- COUNT(*) : NULL을 포함한 전체 행 개수 리턴
+-- 전체 사원 수, 부서 코드가 있는 사원 수, 사원들이 속해 있는 부서의 수
+SELECT COUNT(*), COUNT(DEPT_CODE), COUNT(DISTINCT DEPT_CODE)
+FROM EMPLOYEE;
+
