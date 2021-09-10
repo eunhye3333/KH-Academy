@@ -38,3 +38,7 @@ GRANT CONNECT, RESOURCE TO KH; -- KH에게 CONNECT와 RESOURCE 권한을 주겠다(권한 �
 alter user KH default tablespace system quota unlimited on system;
 -- KH에 있는 tablespace의 system에 대한 용량을 제한을 두지 않도록 만들겠다
 -- DB에서는 대소문자를 구분하지 않아도 되지만 이름이나 비밀번호, 리터럴 값은 대소문자를 구분해줘야 함(명령어는 대소문자 안 가림)
+
+create user SCOTT identified by SCOTT;
+grant resource, connect to SCOTT;
+alter user SCOTT default tablespace system quota unlimited on system;
