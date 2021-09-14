@@ -310,7 +310,7 @@ SELECT TO_NUMBER('1,111', '999,999') + TO_NUMBER('2,222', '9,999')
 FROM DUAL;
 
 -- 5. NULL 처리 함수
--- NVL : 없는 것에만 대해
+-- NVL : 없는 것에만 대해, NULL인 경우 지정값을 출력
 SELECT EMP_NAME, BONUS, NVL(BONUS, 0), -- NULL인 경우 다 0이 들어가짐
         NVL(DEPT_CODE, '부서X') -- 숫자를 넣는 게 아니라 문자를 넣을 수도 있음
 FROM EMPLOYEE;
