@@ -42,3 +42,7 @@ alter user KH default tablespace system quota unlimited on system;
 create user SCOTT identified by SCOTT;
 grant resource, connect to SCOTT;
 alter user SCOTT default tablespace system quota unlimited on system;
+
+CREATE USER CHOON IDENTIFIED BY CHOON;
+GRANT RESOURCE, CONNECT TO CHOON;
+ALTER USER CHOON DEFAULT TABLESPACE SYSTEM QUOTA UNLIMITED ON SYSTEM;
