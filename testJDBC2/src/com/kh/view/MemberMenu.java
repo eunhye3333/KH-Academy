@@ -28,9 +28,9 @@ public class MemberMenu {
 			case 1: mc.insertMember(); break;
 			case 2: mc.selectAll(); break;
 			case 3: mc.selectMember(); break;
-			case 4: break;
-			case 5: break;
-			case 0: System.out.println("프로그램을 종료합니다."); break;
+			case 4: mc.updateMember(); break;
+			case 5: mc.deleteMember(); break;
+			case 0: System.out.println("프로그램을 종료합니다."); mc.exitProgram(); break;
 			default : System.out.println("잘못된 번호입니다. 다시 입력해주세요.");
 			}
 		} while(select != 0);
@@ -106,6 +106,44 @@ public class MemberMenu {
 		System.out.print("조회할 성별 입력(남:M/여:F) : ");
 		char gender = sc.nextLine().toUpperCase().charAt(0);
 		return gender;
+	}
+
+	public int updateMember() {
+		System.out.println("\n *** ID가 확인되었습니다 *** \n");
+		while(true) {
+			System.out.println("1. 비밀번호 변경");
+			System.out.println("2. 이메일 변경");
+			System.out.println("3. 전화번호 변경");
+			System.out.println("4. 주소 변경");
+			System.out.println("0. 메인 메뉴로 돌아가기");
+			System.out.print("번호 선택 : ");
+			int select = Integer.parseInt(sc.nextLine());
+			
+			switch(select) {
+			case 1: case 2: case 3: case 4: case 0: return select; 
+			default: System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+			}
+		}
+	}
+
+	public String inputUpdate() {
+		System.out.print("수정 값 입력 : ");
+		String input = sc.nextLine();
+		return input;
+	}
+
+	public char checkDelete(String memberId) {
+		while(true) {
+			System.out.println("\n *** ID가 확인되었습니다 *** \n");
+			System.out.println(memberId + " 회원을 삭제합니다.");
+			System.out.print("정말 삭제하시겠습니까?(y/n) : ");
+			char delete = sc.nextLine().toLowerCase().charAt(0);
+			
+			switch(delete) {
+			case 'y': case 'n':	return delete;
+			default: System.out.println("잘못 입력했습니다. y 또는 n을 입력해주세요.");
+			}
+		}
 	}
 	
 }

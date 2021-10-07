@@ -205,5 +205,89 @@ public class MemberDAO {
 		
 		return list;
 	}
+
+	public int checkMember(String memberId, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0; // DML은 int를 사용하고, SELECT는 ArrayList를 사용하라고 정해진 것이 아님. SELECT를 뭘 할 것이냐에 따라 다름
+		 
+		try {
+			String query = prop.getProperty("checkMember");
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			rset = pstmt.executeQuery(); // rset에 들어갈 수 있는 결과값(행의 개수)은 무조건 1개
+			// COUNT(*)를 사용하면 아이디가 있든 없든 하나의 행이 출력되고 해당 행에 담긴 값만 달라짐(0 또는 1의 값)
+			// 따라서 ResultSet에 담겨지는 결과는 무조건 1개
+			
+			if(rset.next()) {
+//				result = rset.getInt("count(*)");
+//				rset.getInt(columnLabel); --> 컬럼의 이름으로 가지고 옴
+//				rset.getInt(columnIndex); --> 컬럼의 순번으로도 가지고 올 수 있음
+				result = rset.getInt(1);
+				// 컬럼명으로 쓰는 것이 더 직관적
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateMember(String memberId, String input, int sel, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+//		String query = prop.getProperty("updateMember");
+		
+		// UPDATE MEMBER SET ? = ? WHERE MEMBER_ID = ?
+//		String col = null;
+//		switch(sel) {
+//		case 1: col = "member_pwd"; break;
+//		case 2: col = "email"; break;
+//		case 3: col = "phone"; break;
+//		case 4: col = "address"; break;
+//		}
+		// 위와 같이 나눈 후 쿼리에 삽입하면(pstmt.setString(1,col);) ' '이 같이 들어감
+		// ex. 1번 선택 -> 비밀번호 변경
+		// UPDATE MEMBER SET 'member_pwd' = '123' WHERE MEMBER_ID = 'USER01'이라는 쿼리가 만들어지게 됨
+		// => member_pwd를 컬럼으로 인지하지 못함 (효율은 좋으나 치명적인 단점으로 작용) 따라서 쿼리를 쪼개야 됨(쿼리 분리/구분을 위해 sel을 가지고 온 것)
+		// updateMember1~4로 쿼리를 쪼개서 프로퍼티에 작성
+		
+		try {
+			String query = prop.getProperty("updateMember" + sel);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, input);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteMember(String memberId, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			String query = prop.getProperty("deleteMember");
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 }
