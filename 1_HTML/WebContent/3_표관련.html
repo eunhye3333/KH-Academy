@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	thead{background: pink;}
+	tfoot{background: powderblue;}
+	tbody{background: beige;} 
+</style> <!-- 아무 구조도 잡아주지 않으면 tbody로 인지함 -->
+</head>
+<body>
+	<h1>기본적인 표 만들기</h1>
+	<table border="1"> 
+		<tr>
+			<th>브라우저명</th>
+			<th>제조사</th>
+			<th>홈페이지</th>
+		</tr>
+		<tr>
+			<td>익스플로러</td>
+			<td>MS</td>
+			<td>https://www.microsoft.com</td>
+		</tr>
+		<tr>
+			<td>크롬</td>
+			<td>google</td>
+			<td>https://www.google.com</td>
+		</tr>
+		<tr>
+			<td>사파리</td>
+			<td>애플</td>
+			<td>https://www.apple.com</td>
+		</tr>
+		<tr>
+			<td>파이어폭스</td>
+			<td>Mozila</td>
+			<td>https://www.mozilla.org</td>
+		</tr>
+		<caption>
+			<b>웹 브라우저의 종류</b>
+		</caption> <!-- 맨 마지막에 넣어도 제일 위로 감 -->
+	</table>
+	<figure>
+		<figcaption>figure를 이용해서 테이블의 설명 또는 img 설명에 주로 사용</figcaption>
+	</figure>
+	
+	<h1>표의 행과 열 합치기</h1>
+	<h3>회원 정보</h3>
+	<table border="1">
+	<!-- 먼저 4행 4열짜리 테이블을 만들어야 함 -->
+		<tr>
+			<!-- 크기는 위만 지정하면 아래는 영향을 받음 -->
+			<td rowspan="2" colspan="2" width="130px" height="150px">사진</td>
+			<td width="80px">이름</td>
+			<td width="200px"></td>
+		</tr>
+		<tr>
+			<td>연락처</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td width="70px" height="50px">주소</td>
+			<td colspan="3"></td>
+		</tr>
+		<tr>
+			<td height="50px">자기소개</td>
+			<td colspan="3"></td>
+		</tr>
+		
+	</table>
+	
+	
+	<h1>테이블 태그의 구조 설정</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>이름</th>
+				<th>나이</th>
+				<th>주소</th>			
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>박신우</td>
+				<td>20</td>
+				<td>서울시 도봉구 창동</td>			
+			</tr>
+			<tr>
+				<td>강건강</td>
+				<td>20</td>
+				<td>경기도 남양주시 지금동</td>			
+			</tr>
+			<tr>
+				<td>남나눔</td>
+				<td>4</td>
+				<td>경기도 남양주시 지금동</td>			
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2">총인원</td>
+				<td>3명</td>
+			</tr>
+		</tfoot>
+		<!-- 구조를 넣어도 달라지는 것은 없음
+		           위에서 스타일을 지정할 수 있음 -->
+	</table>
+</body>
+</html>
