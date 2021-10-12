@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	body{
+		/* background-color: lightcoral; */
+		/* background-color: #F08080; */
+		/* background-color: rgb(240, 128, 128); */
+		/* background-color: rgba(240, 128, 128, 0.1); */
+	}  
+	
+	#div-bg{background-color: white;}
+	
+	.clip-test{
+		background-color: white;
+		margin: 30px; padding: 20px;
+		width: 20%; float: left;
+		border: 5px dashed black;
+	}
+	#clip1{background-clip: border-box;}
+	#clip2{background-clip: padding-box;}
+	#clip3{background-clip: content-box;}
+	
+	#bg-img{
+		border: 1px solid black;
+		width: 70%; height: 700px;
+		
+		background-image: url("image/bgsample.PNG");
+		
+		background-repeat: repeat;
+		background-repeat: repeat-x;
+		background-repeat: repeat-y;
+		background-repeat: no-repeat;
+		
+		background-size: auto;
+		background-size: contain;
+		background-size: cover;
+		background-size: 150px 100px;
+		background-size: 100% 100%;
+		background-size: 80% 80%;
+		
+		background-position: left top;
+		background-position: right top;
+		background-position: center top;
+		background-position: left bottom;
+		background-position: right bottom;
+		background-position: center bottom;
+		background-position: left center;
+		background-position: right center;
+		background-position: center center;
+		background-position: 30px 50px;
+		background-position: 50% 50%;
+		
+		background-origin: border-box;
+		background-origin: padding-box;
+		background-origin: content-box;
+		
+		background-attachment: scroll;
+		background-attachment: fixed;
+	}
+	
+	.linear-gradient{width: 300px; height: 300px; border: 1px solid black;}
+	#gradient1{
+		background: linear-gradient(to bottom, blue, white);
+		background: -webkit-linear-gradient(top, blue, white);
+		background: -moz-linear-gradient(top, blue, white);
+		background: -ms-linear-gradient(top, blue, white);
+		background: -o-linear-gradient(top, blue, white);
+	}
+	#gradient2{background: linear-gradient(45deg, red, white);}
+	#gradient3{
+		background: linear-gradient(to right, blue, white 20%, red);
+		background: -webkit-linear-gradient(left, blue, white 20%, red);
+	}
+	#gradient4{
+		background: linear-gradient(to right, red, orange 15%, yellow 30%, green 45%, blue 60%, navy 75%, purple 90%);
+	}
+	#gradient5{background: repeating-linear-gradient(blue, red 30%)}
+	#gradient6{
+		background: repeating-linear-gradient(red, red 5%, orange 5%, orange 10%, 
+											  yellow 10%, yellow 15%, green 15%, 
+											  green 20%, blue 20%, blue 25%, navy 25%, navy 30%, 
+											  purple 30%, purple 35%);
+	}
+	
+	.circle-gradient{width: 500px; height: 300px; border: 1px solid black;}
+	#gradient7{background: radial-gradient(white, blue, red);}
+	#gradient8{background: radial-gradient(circle, white, blue, red);}
+	#gradient9{background: radial-gradient(circle at 10% 10%, white, blue, red);} /* 시작 위치 지정, 픽셀도 가능 */
+	#gradient10{background: radial-gradient(circle closest-side at 30% 40%, white, blue, red);} /* 30%, 40% 위치에서 가장 가까운 변에 닿을 때까지 크게 */
+	#gradient11{background: radial-gradient(circle closest-corner at 30% 40%, white, blue, red);} /* 30%, 40% 위치에서 가장 가까운 코너에 닿을 때까지 크게 */
+	#gradient12{background: radial-gradient(circle farthest-side at 30% 40%, white, blue, red);} /* 30%, 40% 위치에서 가장 먼 코너에 닿을 때까지 크게 */
+	#gradient13{background: radial-gradient(circle farthest-side at 30% 40%, white, blue, red);} /* 30%, 40% 위치에서 가장 먼 변에 닿을 때까지 크게 */
+	#gradient14{background: repeating-radial-gradient(white, blue, red 50%);} 
+	#gradient15{background: repeating-radial-gradient(white, white 10%, blue 10%, blue 20%, red 20%, red 30%);} 
+</style>
+</head>
+<body>
+	<h1>배경 스타일</h1>
+	<h2>background-color</h2>
+	<p>배경 색 지정</p>
+	<a href="http://www.colorpicker.com" target="_blank">색상 추출 사이트</a><br>
+	<a href="http://www.w3schools.com/colors/colors_names.asp" target="_blank">색상명 참조 사이트</a>
+	
+	<h3>div 배경 지정하기</h3>
+	<div id="div-bg">
+	싹이 아니한 수 구하지 그러므로 청춘이 있다. 
+        얼음에 봄바람을 동력은 그들은 무엇을 것은 그들의 듣는다. 
+        인간에 황금시대를 청춘이 하는 사막이다. 
+        위하여, 이상이 그림자는 무엇이 남는 뜨거운지라, 사랑의 칼이다. 
+        수 청춘을 행복스럽고 되려니와, 때문이다. 
+        있을 미인을 할지니, 원대하고, 그들의 튼튼하며, 듣는다. 
+        끝까지 동산에는 봄날의 풍부하게 약동하다. 
+        이성은 피부가 속잎나고, 인도하겠다는 튼튼하며, 무한한 들어 말이다. 
+        심장의 위하여, 끓는 것은 예수는 주는 보배를 가치를 철환하였는가?
+	</div>
+	
+	<hr>
+	
+	<h2>background-clip</h2>
+	<p>배경 범위 조절</p>
+	<div class="clip-test" id="clip1">
+	굳세게 가는 수 주며, 같은 거친 것이다. 
+        그것을 청춘의 뭇 트고, 끝까지 이상 청춘은 교향악이다. 
+        인도하겠다는 이는 이상은 그리하였는가? 하는 이성은 피고 봄바람이다. 
+        하여도 능히 밥을 더운지라 그들에게 싸인 가진 같으며, 가치를 뿐이다. 
+        것이 지혜는 모래뿐일 튼튼하며, 눈에 것은 품으며, 것이다. 
+        싹이 사는가 같은 피어나기 없으면, 평화스러운 구하지 것이다. 
+        그들은 얼음이 우리의 가장 같지 쓸쓸하랴? 
+        있을 얼음 오아이스도 소담스러운 예수는 몸이 힘있다. 
+        생명을 따뜻한 얼마나 이상 온갖 인생의 청춘은 무한한 실로 봄바람이다. 
+        속잎나고, 남는 모래뿐일 착목한는 것이다.
+	</div>
+	<div class="clip-test" id="clip2">
+	굳세게 가는 수 주며, 같은 거친 것이다. 
+        그것을 청춘의 뭇 트고, 끝까지 이상 청춘은 교향악이다. 
+        인도하겠다는 이는 이상은 그리하였는가? 하는 이성은 피고 봄바람이다. 
+        하여도 능히 밥을 더운지라 그들에게 싸인 가진 같으며, 가치를 뿐이다. 
+        것이 지혜는 모래뿐일 튼튼하며, 눈에 것은 품으며, 것이다. 
+        싹이 사는가 같은 피어나기 없으면, 평화스러운 구하지 것이다. 
+        그들은 얼음이 우리의 가장 같지 쓸쓸하랴? 
+        있을 얼음 오아이스도 소담스러운 예수는 몸이 힘있다. 
+        생명을 따뜻한 얼마나 이상 온갖 인생의 청춘은 무한한 실로 봄바람이다. 
+        속잎나고, 남는 모래뿐일 착목한는 것이다.
+	</div>
+	<div class="clip-test" id="clip3">
+	굳세게 가는 수 주며, 같은 거친 것이다. 
+        그것을 청춘의 뭇 트고, 끝까지 이상 청춘은 교향악이다. 
+        인도하겠다는 이는 이상은 그리하였는가? 하는 이성은 피고 봄바람이다. 
+        하여도 능히 밥을 더운지라 그들에게 싸인 가진 같으며, 가치를 뿐이다. 
+        것이 지혜는 모래뿐일 튼튼하며, 눈에 것은 품으며, 것이다. 
+        싹이 사는가 같은 피어나기 없으면, 평화스러운 구하지 것이다. 
+        그들은 얼음이 우리의 가장 같지 쓸쓸하랴? 
+        있을 얼음 오아이스도 소담스러운 예수는 몸이 힘있다. 
+        생명을 따뜻한 얼마나 이상 온갖 인생의 청춘은 무한한 실로 봄바람이다. 
+        속잎나고, 남는 모래뿐일 착목한는 것이다.
+	</div>
+	
+	<br clear="all">
+	<hr>
+	
+	<h2>배경 이미지</h2>
+	<h3>backgorund-image</h3>
+	<p>배경에 이미지를 넣고 싶을 때 사용</p>
+	
+	<h3>background-repeat</h3>
+	<p>배경에 이미지를 반복해서 넣고 싶을 때 사용</p>
+	
+	<h3>background-size</h3>
+	<p>배경 이미지 크기를 조절하고 싶을 때 사용</p>
+	
+	<h3>background-position</h3>
+	<p>배경 이미지 위치를 조정하고 싶을 때 사용</p>
+	
+	<h3>background-origin</h3>
+	<p>배경 이미지 배치 시 기준을 정하고 싶을 때 사용</p>
+	
+	<h3>background-attachment</h3>
+	<p>스크롤 움직임에 따라 배경이 움직일지 안 움직일지 정할 때 사용</p>
+	
+	<div id="bg-img"></div>
+	
+	<hr>
+	
+	<h2>그라데이션</h2>
+	<h3>선형 그라데이션</h3>
+	<div id="gradient1" class="linear-gradient"></div>
+	<div id="gradient2" class="linear-gradient"></div>
+	<div id="gradient3" class="linear-gradient"></div>
+	<div id="gradient4" class="linear-gradient"></div>
+	<div id="gradient5" class="linear-gradient"></div>
+	<div id="gradient6" class="linear-gradient"></div>
+
+	<h3>원형 그라데이션</h3>
+	<div id="gradient7" class="circle-gradient"></div>
+	<div id="gradient8" class="circle-gradient"></div>
+	<div id="gradient9" class="circle-gradient"></div>
+	<div id="gradient10" class="circle-gradient"></div>
+	<div id="gradient11" class="circle-gradient"></div>
+	<div id="gradient12" class="circle-gradient"></div>
+	<div id="gradient13" class="circle-gradient"></div>
+	<div id="gradient14" class="circle-gradient"></div>
+	<div id="gradient15" class="circle-gradient"></div>
+	
+	
+</body>
+</html>
