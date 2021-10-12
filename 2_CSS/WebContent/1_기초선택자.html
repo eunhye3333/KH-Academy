@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	/* *{color: red;}  *//* color : 글자 색 설정 속성 */
+	p{color: blue;} /* p 태그만 파란색으로 변경 */
+	#id2{background: yellow;} /* background : 배경 색 설정 */
+	.class1{background: black; color: white;}
+	.class2{color: pink;}
+	
+	div[name=name1]{background: orange;} /* div 중 name이 name1인 경우 주황색 */
+	div[name~=name1]{background: brown;}
+	div[name|=name1]{background: skyblue;}
+	div[name^=name]{background: white;}
+	div[class$=class]{background: coral;}
+	div[class*=v-c]{background: blue;}
+	
+	#testDiv>h4{background: orangered;}
+	/* #testDiv>ul>li{background: yellowgreen} */
+	#testDiv li{background: yellowgreen;}
+	#testDiv ul{background: olive;}
+	
+	#div-test2+div{background: chocolate;}
+	#div-test3~div{background: lightsalmon;}
+	
+	#active-test, #hover-test{color: white; width: 300px; height: 100px;}
+	#active-test:active{background: gold; color: black;}
+	#hover-test:hover{background: gold; color: black; cursor: pointer;}
+	
+	input[name=fruits]:checked{width: 20px; height: 20px;}
+	
+	#userId:focus, #userPwd:focus{background: red;}
+	
+	option:disabled{background: red; color: white;}
+	option:enabled{background: yellowgreen;}
+	
+	#test1 p:first-child{background: red; color: white;}
+	#test1 p:last-child{background: orange; color: white;}
+	#test1 p:nth-child(2n){background: yellow;}
+	#test1 p:nth-last-child(4){background: green; color: white;}
+	
+	#test2 p:first-of-type{background: red; color: white;}
+	#test2 p:last-of-type{background: orange; color: white;}
+	#test2 p:nth-of-type(2n){background: yellow;}
+	#test2 p:nth-last-of-type(4){background: green; color: white;}
+	
+	#test3 p::first-letter{font-size: 100px;}
+	#test3 p::first-line{background: beige;}
+	#test3 p::after{content: "태그 뒤에 추가";}
+	#test3 p::before{content: "태그 앞에 추가";}
+	#test3 p::selection{background: red; color: yellow;}
+	
+	/* #test4 li:nth-child(2n-1){background: gray;} */
+	#test4 li:not(:nth-child(2n)){background: gray;}
+	
+</style>
+</head>
+<body>
+	<h1>CSS 기본 선택자</h1>
+	<p>선택자란?</p>
+	특정 HTML 태그를 선택할 때 사용하는 기능, 태그를 선택하여 원하는 스타일과 가능 적용 가능
+	
+	<hr>
+	
+	<h2>모든 선택자</h2><!-- * 사용, 다 빨간색으로 바뀜 -->
+	<p>HTML 문서 안의 모든 태그를 선택할 때 전체 선택자 사용</p>
+	<ul>
+		<li>테스트1</li>
+		<li>테스트2</li>
+		<li>테스트3</li>
+	</ul>
+	
+	<hr>
+	
+	<h2>태그 선택자</h2>
+	<p>HTML 문서 내 같은 태그를 모두 선택할 때 사용</p>
+	
+	<hr>
+	
+	<h2>아이디와 클래스 선택자</h2>
+	<h3>아이디 선택자</h3>
+	<p>HTML 문서 내 해당하는 아이디 속성을 가진 태그만 선택할 때 사용</p>
+	<ol>
+		<li id="id1">아이디 선택자 테스트1</li>
+		<li id="id2">아이디 선택자 테스트2</li>
+		<li id="id3">아이디 선택자 테스트3</li>
+		<li id="id4">아이디 선택자 테스트4</li>
+		<li id="id5">아이디 선택자 테스트5</li>
+		<!-- 같은 li 태그여도 아이디가 같으면 문제가 발생하기 때문에 id를 다 다르게 적어줘야 함 -->
+	</ol>
+	
+	<h3>클래스 선택자 : 그룹을 지어주고 싶을 때 사용</h3>
+	<p>HTML 문서 내 여러 개의 태그를 동일한 클래스 명으로 지정하여 선택할 때 사용</p>
+	<ul>
+		<li class="class1">클래스 선택자 테스트1</li> 
+		<li class="class2">클래스 선택자 테스트2</li> 
+		<li class="class1">클래스 선택자 테스트3</li> 
+		<li class="class2">클래스 선택자 테스트4</li> 
+		<li class="class1">클래스 선택자 테스트5</li> 
+	</ul>
+	
+	<hr>
+	
+	<h2>속성 선택자</h2>
+	<p>기본 선택자 뒤에 []를 사용하여 속성과 속성 값 사용</p>
+	<div name="name1" class="div-class">div 1</div> 
+	<div name="name1 name2" class="div-class">div 2</div> 
+	<div name="name1-name3" class="div-class">div 3</div> 
+	<div name="name4" class="div-class">div 4</div> 
+	
+	<hr>
+	
+	<h2>자손 선택자와 후손 선택자</h2>
+	<p>자손 선택자 : 바로 아래 요소 / 후손 선택자 : 하위 요소 전부</p>
+	<div id="testDiv">
+		<h4>자손입니다</h4>
+		<h4>저도 자손입니다</h4>
+		<ul id="testUl">저도 자손입니다
+			<li>저는 ul의 자손이면서 동시에 div의 후손입니다</li>
+			<li>저도 ul의 자손이면서 동시에 div의 후손입니다</li>
+		</ul>
+	</div>
+	
+	<hr>
+	
+	<h2>동위 선택자</h2>
+	<p>동위 관계에서 뒤에 위치한 태그를 선택할 때 사용</p>
+	<div id="div-test1">div test1</div>
+	<div id="div-test2">div test2</div>
+	<div id="div-test3">div test3</div>
+	<div id="div-test4">div test4</div>
+	<div id="div-test5">div test5</div>
+	
+	<hr>
+	
+	<h2>반응 선택자</h2>
+	<p>사용자의 움직임에 따라 달라지는 선택자</p>
+	<div id="active-test">active 테스트</div><br>
+	<div id="hover-test">hover 테스트</div>
+	
+	<hr>
+	
+	<h2>상태 선택자</h2>
+	<p>입력 양식의 상태에 따라 선택되는 선택자</p>
+	<h3>체크 상태의 input 태그 선택</h3>
+	<input type="checkbox" id="apple" name="fruits" value="사과">사과
+	<input type="checkbox" id="banana" name="fruits" value="바나나">바나나
+	<input type="checkbox" id="peach" name="fruits" value="복숭아">복숭아
+	<h3>초점이 맞춰진 input태그 선택</h3>
+	아이디 : <input type="text" id="userId" placeholder="아이디를 입력하세요"><br>
+	비밀번호 : <input type="password" id="userPwd" placeholder="비밀번호를 입력하세요"><br>
+	<h3>사용 가능/불가능한 input 태그 선택</h3>
+	<h4>당신의 연령대는?</h4>
+	<select>
+		<option value="10" disabled>10대</option>
+		<option value="20">20대</option>
+		<option value="30">30대</option>
+		<option value="40">40대</option>
+		<option value="50">50대</option>
+		<option value="60" disabled>60대</option>
+	</select>
+	
+	<hr>
+	
+	<h2>구조 선택자</h2>
+	<h3>일반 구조 선택자</h3>
+	<p>특정한 위치에 있는 태그 선택(위치로 구분)</p>
+	<div id="test1">
+		<p>테스트1</p>
+		<p>테스트2</p>
+		<p>테스트3</p>
+		<p>테스트4</p>
+		<p>테스트5</p>
+		<pre>테스트6</pre>
+	</div>
+	<h3>형태 구조 선택자</h3>
+	<p>특정한 위치에 있는 태그 선택(태그 별로 구분)</p>
+	<div id="test2">
+		<p>테스트1</p>
+		<p>테스트2</p>
+		<p>테스트3</p>
+		<p>테스트4</p>
+		<p>테스트5</p>
+		<pre>테스트6</pre>
+	</div>
+	
+	<hr>
+	
+	<h2>문자 선택자</h2>
+	<p>태그 내부에서 특정 조건의 문자를 선택하는 선택자</p>
+	<div id="test3">
+		<p>
+			대법원장은 국회의 동의를 얻어 대통령이 임명한다. 감사위원은 원장의 제청으로 대통령이 임명하고, 그 임기는 4년으로 하며, 1차에 한하여 중임할 수 있다. 국회는 국민의 보통·평등·직접·비밀선거에 의하여 선출된 국회의원으로 구성한다. 대통령은 헌법과 법률이 정하는 바에 의하여 국군을 통수한다. 대통령은 법률안의 일부에 대하여 또는 법률안을 수정하여 재의를 요구할 수 없다. 모든 국민은 자기의 행위가 아닌 친족의 행위로 인하여 불이익한 처우를 받지 아니한다. 공무원의 직무상 불법행위로 손해를 받은 국민은 법률이 정하는 바에 의하여 국가 또는 공공단체에 정당한 배상을 청구할 수 있다. 이 경우 공무원 자신의 책임은 면제되지 아니한다. 외국인은 국제법과 조약이 정하는 바에 의하여 그 지위가 보장된다. 국무회의는 정부의 권한에 속하는 중요한 정책을 심의한다. 국무위원은 국무총리의 제청으로 대통령이 임명한다. 사회적 특수계급의 제도는 인정되지 아니하며, 어떠한 형태로도 이를 창설할 수 없다. 국회는 헌법 또는 법률에 특별한 규정이 없는 한 재적의원 과반수의 출석과 출석의원 과반수의 찬성으로 의결한다. 가부동수인 때에는 부결된 것으로 본다. 대통령은 조국의 평화적 통일을 위한 성실한 의무를 진다. 국회의원은 국가이익을 우선하여 양심에 따라 직무를 행한다. 이 헌법시행 당시에 이 헌법에 의하여 새로 설치될 기관의 권한에 속하는 직무를 행하고 있는 기관은 이 헌법에 의하여 새로운 기관이 설치될 때까지 존속하며 그 직무를 행한다.
+		</p>
+	</div>
+	
+	<hr>
+	
+	<h2>부정 선택자</h2>
+	<p>지금까지의 선택자에 대해 반대로 적용하는 선택자</p>
+	<ul id="test4">
+		<li>테스트1</li>
+		<li>테스트2</li>
+		<li>테스트3</li>
+		<li>테스트4</li>
+		<li>테스트5</li>
+	</ul>
+</body>
+</html>
