@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>책 카테고리 선택</title>
+<style>
+	#hobby{width: 600px;}
+	#area1{width: 629px; height: 200px; border: solid 1px red;}
+</style>
+</head>
+<body>	
+	<h1>Practice1</h1>
+	
+	<fieldset id="hobby">
+		<legend>취미</legend>
+		<table>
+			<tr>
+				<td>
+					<input onclick="selectAll1();" type="checkbox" name="all" id="selectAll">전체선택
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="all" value="종합">종합
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="novel" value="소설">소설
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="poem" value="시/에세이">시/에세이
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="economy" value="경제/경영">경제/경영
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="self" value="자기계발">자기계발
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="child" value="아동">아동
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="travel" value="여행">여행
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="science" value="과학">과학
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="history" value="역시/문화">역사/문화
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="foreign" value="외국어">외국어
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="computer" value="컴퓨터">컴퓨터
+				</td>
+				<td>
+					<input onclick="selectAll2();" type="checkbox" name="hobby" id="comic" value="만화">만화
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<br>
+	
+	<button onclick="selectCategory();">카테고리 선택</button>
+	<div id="area1" class="area"></div>
+	<script>
+		function selectCategory() {
+			var list = document.getElementsByName('hobby');
+			var div = document.getElementById('area1');
+			var result = '';
+			
+			for(var i = 0; i < list.length; i++){
+				if(list[i].checked){
+					result += list[i].value + ' ';
+				}
+			}
+			div.innerHTML = result;
+		}
+		
+		function selectAll1() {
+			var list = document.getElementsByName('hobby');
+			var check = document.getElementById('selectAll');
+			
+			if(check.checked){
+				for(var i = 0; i < list.length; i++){
+					list[i].checked = true;
+				}
+			} else{
+				for(var i = 0; i < list.length; i++){
+					list[i].checked = false;
+				}
+			}
+		}
+		
+		function selectAll2(){
+			var list = document.getElementsByName('hobby');
+			var check = document.getElementById('selectAll');
+			var result = true;
+			
+			for(var i = 0; i < list.length; i++){
+				if(list[i].checked == false){
+					result = false;
+				}
+			}
+			
+			if(result && check.checked == false){
+				check.checked = true;
+			} else{
+				check.checked = false;
+			}
+			
+		}
+	</script>
+	
+</body>
+</html>
