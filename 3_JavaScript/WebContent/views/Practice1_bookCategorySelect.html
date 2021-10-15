@@ -66,52 +66,99 @@
 	<button onclick="selectCategory();">카테고리 선택</button>
 	<div id="area1" class="area"></div>
 	<script>
+// 		function selectCategory() {
+// 			var list = document.getElementsByName('hobby');
+// 			var div = document.getElementById('area1');
+// 			var result = '';
+			
+// 			for(var i = 0; i < list.length; i++){
+// 				if(list[i].checked){
+// 					result += list[i].value + ' ';
+// 				}
+// 			}
+// 			div.innerHTML = result;
+// 		}
+		
+// 		function selectAll1() {
+// 			var list = document.getElementsByName('hobby');
+// 			var check = document.getElementById('selectAll');
+			
+// 			if(check.checked){
+// 				for(var i = 0; i < list.length; i++){
+// 					list[i].checked = true;
+// 				}
+// 			} else{
+// 				for(var i = 0; i < list.length; i++){
+// 					list[i].checked = false;
+// 				}
+// 			}
+// 		}
+		
+// 		function selectAll2(){
+// 			var list = document.getElementsByName('hobby');
+// 			var check = document.getElementById('selectAll');
+// 			var result = true;
+			
+// 			for(var i = 0; i < list.length; i++){
+// 				if(list[i].checked == false){
+// 					result = false;
+// 				}
+// 			}
+			
+// 			if(result && check.checked == false){
+// 				check.checked = true;
+// 			} else{
+// 				check.checked = false;
+// 			}
+			
+// 		}
+
+		var list = document.getElementsByName('hobby');
+		var check = document.getElementById('selectAll');
+		
 		function selectCategory() {
-			var list = document.getElementsByName('hobby');
 			var div = document.getElementById('area1');
 			var result = '';
 			
-			for(var i = 0; i < list.length; i++){
-				if(list[i].checked){
-					result += list[i].value + ' ';
+			for(var i = 0; i < window.list.length; i++){
+				if(window.list[i].checked){
+					result += window.list[i].value + ' ';
 				}
 			}
 			div.innerHTML = result;
 		}
 		
 		function selectAll1() {
-			var list = document.getElementsByName('hobby');
-			var check = document.getElementById('selectAll');
 			
-			if(check.checked){
-				for(var i = 0; i < list.length; i++){
-					list[i].checked = true;
+			if(window.check.checked){
+				for(var i = 0; i < window.list.length; i++){
+					window.list[i].checked = true;
 				}
 			} else{
 				for(var i = 0; i < list.length; i++){
-					list[i].checked = false;
+					window.list[i].checked = false;
 				}
 			}
 		}
 		
 		function selectAll2(){
-			var list = document.getElementsByName('hobby');
-			var check = document.getElementById('selectAll');
 			var result = true;
 			
-			for(var i = 0; i < list.length; i++){
-				if(list[i].checked == false){
+			for(var i = 0; i < window.list.length; i++){
+				if(window.list[i].checked == false){
 					result = false;
 				}
 			}
 			
-			if(result && check.checked == false){
-				check.checked = true;
+			if(result && window.check.checked == false){
+				window.check.checked = true;
 			} else{
-				check.checked = false;
+				window.check.checked = false;
 			}
 			
 		}
+
+		
 	</script>
 	
 </body>
