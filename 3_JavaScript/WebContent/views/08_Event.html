@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>이벤트</h1>
+	<h2>이벤트 설정 방법</h2>
+	<h3>인라인 모델</h3>
+	<button onclick="test1();">실행확인</button>
+	<script>
+		function test1() {
+			alert("test1()이 실행되었습니다.");
+		}
+	</script>
+	<button onclick="alert('버튼이 실행되었습니다.');">실행확인</button>
+	
+	<h3>고전 이벤트 모델</h3>
+	<button id="test2">test2() 실행확인</button>
+	<button id="test3">test3() 실행확인</button>
+	<script>
+		// 이벤트 생성을 위해 버튼에 접근
+		var test2 = document.getElementById('test2');	
+		var test3 = document.getElementById('test3');	
+		
+		test2.onclick = function() {
+			alert('test2 버튼을 실행하였습니다.'); // 함수를 만들고 바로 onclick에 집어넣겠다
+		};
+		
+// 		test3.onclick = function() {
+// 			alert('test3 버튼을 실행하면서 test2 이벤트를 제거하였습니다.');
+// 			test2.onclick = null; // test2 이벤트 지우기
+// 		};
+		
+		test3.onclick = test3func; // 이름을 넣어 함수 연결
+		
+		function test3func() {
+			alert('test3 버튼을 실행하면서 test2 이벤트를 제거하였습니다.');
+			test2.onclick = null; 
+		}
+	</script>
+	
+	<h4>이벤트 발생 객체</h4>
+	<button id="test4">test4 실행 확인</button>
+	<script>
+		// 버튼을 누를 때마다 버튼의 배경/글자색이 변함
+		// 하양/검정 -> 검정/하양 -> ... (반복)
+		
+		var test4 = document.getElementById('test4');
+// 		var count = 0;
+		
+// 		test4.onclick = function() {
+// 			if(count % 2 == 0) {
+// 				this.style.background = "black";
+// 				this.style.color = "white";
+// 			} else {
+// // 				this.style.background = "white";
+// // 				this.style.color = "black";
+				
+// 				// 흰색이 아니라 원래 색으로 만들고 싶을 때
+// 				this.style.background = null;
+// 				this.style.color = null;
+// 			}
+// 			count++;
+// 		};
+
+		// boolean 버전
+		var check = true;
+		test4.onclick = function() {
+			if(check){
+				this.style.background = "black";
+				this.style.color = "white";
+				check = false;
+			} else {
+				this.style.background = null;
+				this.style.color = null;
+				check = true;
+			}
+		};
+	</script>
+	
+	<h3>표준 이벤트 모델</h3>
+	<button id='test5'>test5 실행확인</button>
+	<button id='test6'>test6 실행확인</button>
+	<script>
+		var test5 = document.getElementById('test5');
+		var test6 = document.getElementById('test6');
+		
+		var test5ClickFunc = function() {
+			console.log('test5가 클릭되었습니다.');
+		};
+		
+		test5.addEventListener('click', test5ClickFunc);
+
+		test5.addEventListener('mouseover', function() {
+			console.log('test5 안에 들어왔습니다.');
+		});
+		
+// 		test6.addEventListener('mouseover', function() {
+// 			console.log('test6이 실행되었습니다.');
+// 		});
+
+		test6.addEventListener('mouseover', test6func);
+		function test6func() {
+			console.log('test6 안에 들어오면서 test5의 클릭 이벤트를 제거했습니다.');
+// 			test5.removeEventListener('click'); // 인자가 2개 필요한데 하나만 넣었다는 에러 발생, 원래는 함수명이 들어가야 함
+			// 제거를 위해 함수명을 지정해주어야 함
+			test5.removeEventListener('click', test5ClickFunc); 
+		}
+	</script>
+	
+	<h2>기본 이벤트 제거1</h2>
+	<form>
+		이름 : <input type="text" name="name" id="name"><br>
+		아이디 : <input type="text" name="userId" id="userId"><br>
+		비밀번호 : <input type="password" name="password" id="password"><br>
+		비밀번호 확인 : <input type="password" name="passwordConfirm" id="passwordConfirm"><br>
+		<input type="submit" value='제출' onclick="return test7();">
+	</form>
+	<!-- 
+		위 빈칸에 입력된 데이터들을 모두 가져오고 콘솔에 출력
+		비밀번호와 비밀번호 확인 값이 같으면 '비밀번호가 일치합니다' 알림창 출력
+		비밀번호와 비밀번호 확인 값이 같지 않으면 '비밀번호가 일치하지 않습니다' 알림창 출력
+	 -->
+	 <script>
+	 	function test7() {
+			var name = document.getElementById('name').value;
+			var userId = document.getElementById('userId').value;
+			var password = document.getElementById('password').value;
+			var passwordConfirm = document.getElementById('passwordConfirm').value;
+			
+			console.log(name);
+			console.log(userId);
+			console.log(password);
+			console.log(passwordConfirm);
+			
+			// 제출을 누르는 경우 넘어가기 때문에 콘솔에 출력이 되지 않음
+			// 콘솔에 찍히긴 찍힘, form 태그에 action 속성이 없기 때문에 같은 페이지로 새로고침됨 -> 새로운 페이지이기 때문에 콘솔 값이 유지되지 않음
+			// 그래서 값이 찍혔다가 사라지는 것
+			
+			if(password == passwordConfirm){
+				alert('비밀번호가 일치합니다.');
+				return true;
+			} else{
+				alert('비밀번호가 일치하지 않습니다.');
+				document.getElementById('passwordConfirm').select(); // select() -> 해당 값이 선택돼 있도록 함
+				// 비밀번호가 일치하지 않을 때는 넘어가서는 안 됨
+				return false;
+			}
+			
+		}
+	 </script>
+	 
+	<h2>기본 이벤트 제거2</h2>
+	<form onsubmit="return test8();">
+		이름 : <input type="text" name="name2" id="name2"><br>
+		아이디 : <input type="text" name="userId2" id="userId2"><br>
+		비밀번호 : <input type="password" name="password2" id="password2"><br>
+		비밀번호 확인 : <input type="password" name="passwordConfirm2" id="passwordConfirm2"><br>
+		<input type="submit" value='제출'>
+	</form>
+	 <script>
+	 	function test8() {
+			var name = document.getElementById('name2').value;
+			var userId = document.getElementById('userId2').value;
+			var password = document.getElementById('password2').value;
+			var passwordConfirm = document.getElementById('passwordConfirm2').value;
+			
+			console.log(name);
+			console.log(userId);
+			console.log(password);
+			console.log(passwordConfirm);
+			
+			if(password == passwordConfirm){
+				alert('비밀번호가 일치합니다.');
+				return true;
+			} else{
+				alert('비밀번호가 일치하지 않습니다.');
+				document.getElementById('passwordConfirm2').select();
+				return false;
+			}
+			
+		}
+	 </script>
+</body>
+</html>
