@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<style>
+	.menu{
+		width: 300px; height: 30px;
+		background: yellowgreen;
+		border-radius: 10px;
+		text-align: center;
+		border: 1px solid green;
+		cursor: pointer;
+	}
+	
+	.contents{
+		border: 1px solid lightgray;
+		width: 300px;
+		height: 200px;
+		display: none;
+	}
+</style>
+</head>
+<body>
+	<h1>효과</h1>
+	<h2>show()와 hide()</h2>
+	<p>객체를 크게 하여 보여 주거나 작게 하여 사라지게 함</p>
+	<button id="show">보이기</button>
+	<button id="hide">숨기기</button>
+	<button id="toggle">토글이</button>
+	<br>
+	<img id="river" src="../images/river1.PNG">
+	<script>
+		$('#show').click(function() {
+// 			$("#river").css('visibility', 'visible');
+// 			$("#river").css('display', 'inline'); // 이미지는 인라인 요소기 때문
+// 			$('#river').show();
+			$('#river').show(100); // 속도 지정 가능
+		});
+		
+		$('#hide').click(function() {
+// 			$("#river").css('visibility', 'hidden');
+// 			$("#river").css('display', 'none');
+// 			$('#river').hide();
+			$('#river').hide(800);
+		});
+		
+		// 토글 버튼 구현 : show()와 hide가 번갈아 실행되도록 만들기
+		var flag = false;
+		$('#toggle').click(function() {
+// 			if(flag){
+// 				$('#river').show();
+// 				flag = false;
+// 			} else{
+// 				$('#river').hide();
+// 				flag = true;
+// 			}
+
+			// display 이용하는 방법
+// 			console.log($('#river').css('display'));
+ 			// 숨겨져 있을 때 : none, 보일 때 : inline
+// 			if($('#river').css('display') != 'none'){
+// 				$('#river').hide();
+// 			} else{
+// 				$('#river').show();
+// 			}
+			
+			// toggle 메소드
+			$('#river').toggle(500); // 숫자 넣을 수 있음
+		});
+	</script>
+	
+	<h2>slideDown()와 slideUp</h2>
+	<div class="menu">첫 번째 메뉴</div>
+	<p class="contents">내용 1</p>
+	<div class="menu">두 번째 메뉴</div>
+	<p class="contents">내용 2</p>
+	<div class="menu">세 번째 메뉴</div>
+	<p class="contents">내용 3</p>
+	<div class="menu">네 번째 메뉴</div>
+	<p class="contents">내용 4</p>
+	<div class="menu">다섯 번째 메뉴</div>
+	<p class="contents">내용 5</p>
+
+	<script>
+		// count나 boolean 등을 사용하여도 되는데 복잡함
+		$('.menu').click(function() {
+			// 내용을 display를 보고 열렸는지 닫혔는지 알 수 있음
+// 			if($(this).next().css('display') == 'none'){
+//  				$(this).next().slideDown(); // 매개변수에 숫자 넣을 수 있음, 높을수록 느리게 열림
+// 				$(this).next().slideDown(1000); 
+				
+// 			} else{
+// 				$(this).next().slideUp();
+// 			}
+			
+			// 토글 사용 가능
+			$(this).next().slideToggle();
+		});
+	</script>
+	
+	<h2>fadeIn()와 fadeOut()</h2>
+	<button id="fadeIn">fadeIn()</button>
+	<button id="fadeOut">fadeOut()</button>
+	<button id="fadeToggle">toggle()</button>
+	<br>
+	<img id="flower" src="../images/flower1.PNG">
+	<script>
+		$('#fadeIn').click(function(){
+			$('#flower').fadeIn(600);
+		});
+		$('#fadeOut').click(function(){
+			$('#flower').fadeOut(900);
+		});
+		
+		$('#flower').hover(function() {
+			$(this).fadeTo(700, 0.4);
+		}, function(){
+			$(this).fadeTo(700, 1);
+		});
+		
+		$('#fadeToggle').click(function() {
+			$('#flower').fadeToggle(1000); // 속도 지정 가능
+		});
+	</script>
+</body>
+</html>
