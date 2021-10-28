@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<style>
+	.test{
+		width: 150px; height: 50px; border: 1px solid black; text-align: center;
+		display: table-cell; vertical-align: middle;
+	}
+	
+	.outer{width: 100px; height: 50px; background: powderblue; padding: 30px;}
+	.inner{width: 100%; height: 100%; background: white;}
+	
+	.reverse{background: black; color: white;}
+</style>
+</head>
+<body>
+	<h1>이벤트</h1>
+	<h2>이벤트 관련 속성</h2>
+	<p>이벤트 핸들러의 매개인자로 event객체 전달, 인라인에서는 다른 키워드 불가능</p>
+	<button onclick="test1(event);">실행확인</button>
+	<script>
+		function test1(e) {
+			console.log(e); // 내가 동작한 것에 대해 어떤 이벤트인지 어떤 속성을 가지고 있는지 보여 줌
+			console.log(e.target); // 이벤트가 일어난 곳에 대해서 알아보고 싶다
+		}
+	</script>
+	<h2>이벤트 연결 종류</h2>
+	<h3>on()과 off()</h3>
+	<p>
+		on() : 현재 존재하는 문서 객체만 이벤트 연결<br>
+		off() : on()로 연결된 이벤트 제거
+	</p> 
+	<div id="onOff" class="test">기본 상태</div>
+	<script>
+		$(function() {
+// 			$('#onOff').click(function() {
+// 				alert('div를 클릭했습니다.');
+// 			});
+
+			// on 메소드로 변경
+			$('#onOff').on('click', function() {
+				alert('div를 클릭했습니다.');			
+			});
+			
+			// 여러 개 연결 가능 : {}로 객체로 사용
+			$('#onOff').on({'mouseenter':function(){
+				// 배경색 베이지, 커서 손가락 모양, '마우스 올라감'
+				$(this).css({'background':'beige', 'cursor':'pointer'}).text('마우스 올라감').m;
+			}, 'mouseout':function(){
+				// 배경색 파우더블루, 마우스 내려감
+				$(this).css('background', 'powderblue').text('마우스 내려감');
+			}, 'click':function(){
+				// 배경색 흰색, '기본값'
+				// mouseenter, mouseout 제거
+				$(this).css('background', 'white').text('기본값').off('mouseenter').off('mouseout');
+			}});
+		});
+	</script>
+	
+	<h3>one()</h3>
+	<p>이벤트를 한 번만 연결할 때 사용(일회성)</p>
+	<div id="eventOne" class="test">기본 상태</div>
+	<script>
+		$('#eventOne').one('click', function() {
+			alert('처음이자 마지막 이벤트 발생');
+		});
+	</script>
+	
+	<h2>이벤트 종류</h2>
+	<h3>마우스 이벤트</h3>
+	<h4>mouseover/mouseout(), mouseenter/mouseleave()</h4>
+	<div class="outer" id="mouseEvent1">
+		<div class="inner"></div>
+	</div>
+	<br>
+	<div class="outer" id="mouseEvent2">
+		<div class="inner"></div>
+	</div>
+	<script>
+		// 자식 요소 접근 시에도 똑같이 이벤트 발생 (자식 요소에게도 내 이벤트를 물려줌) : 자식 요소에 들어가면 내 요소에서 나가고, 자식 요소에 들어간 것으로 생각
+		// 버블링 적용됨 (버블링 : 자식에게 부모의 이벤트를 계속 물려주는 것)
+		$('#mouseEvent1').mouseover(function(){
+			console.log($(this).attr('id') + ' over!');
+		});
+		$('#mouseEvent1').mouseout(function(){
+			console.log($(this).attr('id') + ' out!');
+		});
+		
+		// 자식 요소 접근 시 이벤트 발생하지 않음
+		// 버블링 적용 X
+		$('#mouseEvent2').mouseenter(function(){
+			console.log($(this).attr('id') + ' enter!');
+		});
+		$('#mouseEvent2').mouseleave(function(){
+			console.log($(this).attr('id') + ' leave!');
+		});
+		
+		// 세트가 아니어도 호환 가능, 같이 사용할 수 있음
+	</script>
+	
+	<h4>hover()</h4>
+	<p>mouseenter()(인자 앞)와 mouseleave()(인자 뒤)를 동시에 사용하는 효과</p>
+	<div id="hoverEvent" class="test">기본 상태</div>
+	<script>
+		$('#hoverEvent').hover(function(){
+			// 앞의 인자가 mouseenter
+			console.log('오잉?');
+// 			$(this).addClass('reverse');
+			$(this).toggleClass('reverse');
+		}, function(){
+			// 뒤의 인자가 mouseleave
+			console.log('에잉?');
+// 			$(this).removeClass('reverse');
+			$(this).toggleClass('reverse');
+			// toggleClass() : 선택된 요소에 class가 있으면 삭제하고 없으면 추가
+		});
+	</script>
+	
+	<h3>키보드 이벤트</h3>
+	<h4>keydown(), keypress(), keyup()</h4>
+	<textarea cols='40' rows='5' id='keyEvent'></textarea>
+	<script>
+		$('#keyEvent').keydown(function(e){
+			// 눌릴 때 반응
+			console.log('keydown : ' + e.key);
+		});
+		$('#keyEvent').keypress(function(e){
+			// 눌릴 때 반응
+			console.log('keypress : ' + e.key);
+		});
+		$('#keyEvent').keyup(function(e){
+			// 떨어질 때 반응
+			console.log('keyup : ' + e.key);
+		});
+	</script>
+	
+	<h4>동적으로 글자수 세기</h4>
+	<span id="counter">0</span>/150<br>
+	<textarea cols='70' rows='5' id='textTest'></textarea>
+	<script>
+		var len = 0;
+// 		$('#textTest').keyup(key).keydown(key);
+		
+// 		function key(e) {
+// 			len = $('#textTest').val().length;
+// 			if(len > 150){
+// 				$('#counter').text(len);
+// 				$('#counter').css('color', 'red');
+// 			} else {
+// 				$('#counter').text(len);
+// 				$('#counter').css('color', 'black');
+// 			}
+// 		}
+
+		$('#textTest').keyup(function(e){
+			len = $(this).val().length;
+			$('#counter').text(len);
+			if(len > 150){
+				$('#counter').css('color', 'red');
+				$(this).val($(this).val().substr(0, 150));
+			} else {
+				$('#counter').css('color', 'black');
+			}
+		}).keydown(function(e){
+			len = $(this).val().length;
+			$('#counter').text(len);
+			if(len > 150){
+				$('#counter').css('color', 'red');
+			} else {
+				$('#counter').css('color', 'black');
+			}
+		});
+		
+	</script>
+</body>
+</html>
