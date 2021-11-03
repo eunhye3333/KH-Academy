@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이미지 확대</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style>
+	td.small {
+		text-align:center;
+		cursor:pointer;
+		width:150px;
+	}
+	td.small a img {
+		border:none;
+		margin:10px;
+		width:60px;
+		height:60px;
+	}
+	td.small p{font-weight:bold;}
+	.large {width:500px; text-align:center;}
+	.hover {background-color:powderblue;}
+</style>
+
+</head>
+<body>
+	<h1>이미지 확대</h1>
+	<!-- 
+		작은 이미지에 마우스 오버 시 오른 쪽에 큰 이미지로 서서히 보이게 하세요
+		또 작은 이미지를 클릭하면 해당 이미지를 전체 화면에서 볼 수 있도록 하세요
+	-->
+	<table>
+		<tr>
+			<td class="small">
+				<a href="../images/samsung1.png"><img src="../images/samsung1.png"/></a>
+				<p>삼성 21x<br>&#8361;500
+			</td>
+			<td rowspan='4'>
+				<img src="../images/samsung1.png" class="large" />
+			</td>
+		</tr>
+		<tr>
+			<td class="small">
+				<a href="../images/samsung2.png"><img src="../images/samsung2.png"/></a>
+				<p>삼성 NX mini <br> &#8361;350
+			</td>
+		</tr>
+		<tr>
+			<td  class="small">
+				<a href="../images/canon1.png"><img src="../images/canon1.png"/></a>
+				<p>캐논 SX510HS <br> &#8361;400
+			</td>
+		</tr>
+		<tr>
+			<td class="small">
+				<a href="../images/nikon1.png"><img src="../images/nikon1.png"/></a>
+				<p>니콘 FusHD <br> &#8361;200
+			</td>
+		</tr>
+	</table>
+	<script>
+		
+		$('.small').mouseenter(function() {
+			var imgSrc = $(this).find('img').attr('src');
+			$('.large').attr('src', imgSrc);
+			$('.large').fadeIn(200);
+		}).mouseleave(function() {
+			$('.large').hide();
+		});
+	</script>
+</body>
+</html>
