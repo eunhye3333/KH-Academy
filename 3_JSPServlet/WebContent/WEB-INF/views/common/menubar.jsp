@@ -58,7 +58,7 @@
 				<label><%= loginUser.getUserName() %> 님의 방문을 환영합니다.</label>
 				<br clear="all">
 				<div class="loginBtns">
-					<input type="button" value="내 정보 보기">
+					<input type="button" value="내 정보 보기" onclick="location.href='<%= request.getContextPath() %>/myPage.me'">
 					<input type="button" value="로그아웃" onclick="location.href='<%= request.getContextPath() %>/logout.me'"> 
 				</div>
 			</div>
