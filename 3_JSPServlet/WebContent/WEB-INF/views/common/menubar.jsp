@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JSP&Servlet</title>
-<script type="text/html" src="<%= request.getContextPath() %>/"></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
 <style>
 	body{
 		background:url('<%= request.getContextPath() %>/images/bg.png') no-repeat center center fixed;
@@ -65,5 +65,14 @@
 		<% } %>
 	</div>
 	<br clear="all">
+	<br>
+	<div class="wrap">
+		<nav>
+			<div class="menu" onclick="location.href='<%= request.getContextPath() %>'">HOME</div>
+			<div class="menu" onclick="location.href='<%= request.getContextPath() %>/list.no'">공지사항</div>
+			<div class="menu" onclick="location.href='<%= request.getContextPath() %>/list.bo'">게시판</div>
+			<div class="menu" onclick="location.href='<%= request.getContextPath() %>/list.th'">사진 게시판</div>
+		</nav>
+	</div>
 </body>
 </html>
