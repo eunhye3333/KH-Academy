@@ -1,6 +1,7 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Attachment;
 import board.model.vo.Board;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class BoardWriteServlet
+ * Servlet implementation class FileListServlet
  */
-@WebServlet("/insert.bo")
-public class InsertBoardServlet extends HttpServlet {
+@WebServlet("/list.th")
+public class FileListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertBoardServlet() {
+    public FileListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,28 +32,26 @@ public class InsertBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("UTF-8");
+		BoardService bService = new BoardService();
 		
-		String category = request.getParameter("category");
-		String boardTitle = request.getParameter("title");
-		String boardContent = request.getParameter("content");
-		String boardWritter = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-
-		Board b = new Board();
-		b.setCategory(category);
-		b.setBoardTitle(boardTitle);
-		b.setBoardContent(boardContent);
-		b.setBoardWritter(boardWritter);
-		b.setBoardType(1);
+		// 게시판 리스트 가져오기
+		ArrayList<Board> bList = bService.selectTList(1);
+		// 파일 리스트 가져오기
+		ArrayList<Attachment> fList = bService.selectTList(2);
+		// 1은 게시판을, 2는 파일을 가지고 오겠다는 신호
 		
-		int result = new BoardService().insertBoard(b);
-		
-		if(result > 0) {
-			response.sendRedirect("list.bo");
+		String page = null;
+		if(bList != null && fList != null) {
+			request.setAttribute("bList", bList);
+			request.setAttribute("fList", fList);
+			page = "WEB-INF/views/thumbnail/thumbnailList.jsp";
 		} else {
-			request.setAttribute("msg", "게시글 작성 실패");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
+			request.setAttribute("msg", "사진 게시판 조회 실패");
+			page = "WEB-INF/views/common/errorPage.jsp";
 		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**

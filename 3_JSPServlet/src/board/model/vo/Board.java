@@ -8,7 +8,7 @@ public class Board {
 	private String category;
 	private String boardTitle;
 	private String boardContent;
-	private String boardWritter;
+	private String boardWriter;
 	private String nickName;
 	private int boardCount;
 	private Date createDate;
@@ -25,7 +25,7 @@ public class Board {
 		this.category = category;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
-		this.boardWritter = boardWritter;
+		this.boardWriter = boardWritter;
 		this.nickName = nickName;
 		this.boardCount = boardCount;
 		this.createDate = createDate;
@@ -74,11 +74,11 @@ public class Board {
 	}
 
 	public String getBoardWritter() {
-		return boardWritter;
+		return boardWriter;
 	}
 
 	public void setBoardWritter(String boardWritter) {
-		this.boardWritter = boardWritter;
+		this.boardWriter = boardWritter;
 	}
 
 	public String getNickName() {
@@ -124,7 +124,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [boardId=" + boardId + ", boardType=" + boardType + ", category=" + category + ", boardTitle="
-				+ boardTitle + ", boardContent=" + boardContent + ", boardWritter=" + boardWritter + ", nickName="
+				+ boardTitle + ", boardContent=" + boardContent + ", boardWritter=" + boardWriter + ", nickName="
 				+ nickName + ", boardCount=" + boardCount + ", createDate=" + createDate + ", modifyDate=" + modifyDate
 				+ ", status=" + status + "]";
 	}

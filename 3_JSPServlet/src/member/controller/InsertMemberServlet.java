@@ -14,7 +14,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class insertMemberServlet
  */
-@WebServlet("/insert.me")
+@WebServlet(name="InsertMemberServlet", urlPatterns="/insert.me")
 public class InsertMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,7 +30,7 @@ public class InsertMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8");
 		
 		String userId = request.getParameter("joinUserId");
 		String userPwd = request.getParameter("joinUserPwd");

@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
 
@@ -221,6 +222,146 @@ public class BoardDAO {
 		}
 		
 		return result;
+	}
+
+	public ArrayList selectBList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectBList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+//				Board b = new Board(rset.getInt("BOARD_ID"),
+//									rset.getInt("BOARD_TYPE"),
+//									rset.getString("CATE_NAME"),
+//									rset.getString("BOARD_TITLE"),
+//									rset.getString("BOARD_CONTENT"),
+//									rset.getString("BOARD_WRITER"),
+//									rset.getString("NICKNAME"),
+//									rset.getInt("BOARD_COUNT"),
+//									rset.getDate("CREATE_DATE"),
+//									rset.getDate("MODIFY_DATE"),
+//									rset.getString("STATUS"));
+//				list.add(b);
+				
+				list.add(new Board(rset.getInt("BOARD_ID"),
+								   rset.getInt("BOARD_TYPE"),
+								   rset.getString("CATE_NAME"),
+								   rset.getString("BOARD_TITLE"),
+								   rset.getString("BOARD_CONTENT"),
+								   rset.getString("BOARD_WRITER"),
+								   rset.getString("NICKNAME"),
+								   rset.getInt("BOARD_COUNT"),
+								   rset.getDate("CREATE_DATE"),
+								   rset.getDate("MODIFY_DATE"),
+								   rset.getString("STATUS")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList selectFList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> list = null;
+		
+		String query = prop.getProperty("selectFList");
+		// FILE_LEVEL = 0 : 썸네일에 관련된 것만 가지고 오겠다, 리스트만 볼 것이기 때문에 굳이 안에 있는 사진까지 가져오지 않아도 됨
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Attachment>();
+			
+			while(rset.next()) {
+				Attachment a = new Attachment();
+				a.setBoardId(rset.getInt("BOARD_ID"));
+				a.setChangeName(rset.getString("CHANGE_NAME"));
+				
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		// 이미 Board를 넣은 상태로 진행하기 때문에 Board_ID = SEQ_BID.CURRVAL
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				pstmt.setInt(4, fileList.get(i).getFileLevel());
+				
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public ArrayList<Attachment> selectThumbnail(int bId, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> list = null;
+		
+		String query = prop.getProperty("selectThumbnail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Attachment>();
+			
+			while(rset.next()) {
+				Attachment a = new Attachment();
+				a.setFiledId(rset.getInt("FILE_ID"));
+				a.setOriginName(rset.getString("ORIGIN_NAME"));
+				a.setChangeName(rset.getString("CHANGE_NAME"));
+				a.setFilePath(rset.getString("FILE_PATH"));
+				a.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 }

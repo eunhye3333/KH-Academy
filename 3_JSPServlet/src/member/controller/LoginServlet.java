@@ -16,7 +16,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/login.me") // web.xml에서 servlet 태그와 servlet-mapping 태그의 역할을 함
+@WebServlet(name="LoginServlet", urlPatterns="/login.me") // web.xml에서 servlet 태그와 servlet-mapping 태그의 역할을 함
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
+		System.out.println(userPwd);
 		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		

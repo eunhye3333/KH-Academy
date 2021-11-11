@@ -1,6 +1,7 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Attachment;
 import board.model.vo.Board;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class BoardWriteServlet
+ * Servlet implementation class ThumbDetailServlet
  */
-@WebServlet("/insert.bo")
-public class InsertBoardServlet extends HttpServlet {
+@WebServlet("/detail.th")
+public class ThumbnailDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertBoardServlet() {
+    public ThumbnailDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,28 +32,24 @@ public class InsertBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("UTF-8");
+		int bId = Integer.parseInt(request.getParameter("bId"));
 		
-		String category = request.getParameter("category");
-		String boardTitle = request.getParameter("title");
-		String boardContent = request.getParameter("content");
-		String boardWritter = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-
-		Board b = new Board();
-		b.setCategory(category);
-		b.setBoardTitle(boardTitle);
-		b.setBoardContent(boardContent);
-		b.setBoardWritter(boardWritter);
-		b.setBoardType(1);
+		// 사진과 게시글 내용을 가지고 와야 하기 때문에 Service를 두 번 왔다갔다 해야 함
+		BoardService service = new BoardService();
+		Board board = service.selectBoard(bId, null);
+		ArrayList<Attachment> fileList = service.selectThumbnail(bId);
 		
-		int result = new BoardService().insertBoard(b);
-		
-		if(result > 0) {
-			response.sendRedirect("list.bo");
+		String page = null;
+		if(fileList != null) {
+			request.setAttribute("board", board);
+			request.setAttribute("fileList", fileList);
+			page = "WEB-INF/views/thumbnail/thumbnailDetail.jsp";
 		} else {
-			request.setAttribute("msg", "게시글 작성 실패");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
+			request.setAttribute("msg", "사진 게시판 상세보기 실패");
+			page = "WEB-INF/views/common/errorPage";
 		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
