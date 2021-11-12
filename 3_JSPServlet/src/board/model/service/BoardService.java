@@ -9,6 +9,7 @@ import board.model.dao.BoardDAO;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
+import board.model.vo.Reply;
 
 public class BoardService {
 	
@@ -140,6 +141,39 @@ public class BoardService {
 	public ArrayList<Attachment> selectThumbnail(int bId) {
 		Connection conn = getConnection();
 		ArrayList<Attachment> list = bDAO.selectThumbnail(bId, conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Reply> selectReplyList(int bId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Reply> list = bDAO.selectReplyList(bId, conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Reply> insertReply(Reply r) {
+		Connection conn = getConnection();
+		
+		int result = bDAO.insertReply(conn, r);
+		
+		ArrayList<Reply> list = null;
+		if(result > 0) {
+			list = bDAO.selectReplyList(r.getRefBId(), conn);
+			
+			if(list != null) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		} else {
+			rollback(conn);
+		}
 		
 		close(conn);
 		

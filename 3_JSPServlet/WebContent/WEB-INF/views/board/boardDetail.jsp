@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.Board"%>
-<% Board b = (Board)request.getAttribute("b"); %>
+    pageEncoding="UTF-8" import="board.model.vo.Board, board.model.vo.Reply, java.util.ArrayList"%>
+<% 
+	Board b = (Board)request.getAttribute("b"); 
+	ArrayList<Reply> list = (ArrayList<Reply>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +11,7 @@
 <title>Insert title here</title>
 <style>
 	.outer{
-		width:800px; height:500px; background: rgba(255, 255, 255, 0.4); border: 5px solid white;
+		width:800px; min-height:500px; background: rgba(255, 255, 255, 0.4); border: 5px solid white;
 		margin-left:auto; margin-right:auto; margin-top:50px;
 	}
 	.tableArea {width: 450px; height:350px; margin-left:auto; margin-right:auto; align: center;}
@@ -16,6 +19,7 @@
 	#updateBtn{background: #B2CCFF;}
 	#menuBtn{background: #D1B2FF;}
 	#deleteBtn{background: #D5D5D5;}
+	#addReply{background: #B2CCFF;}
 </style>
 </head>
 <body>
@@ -68,6 +72,35 @@
 				</div>
 			</form>
 		</div>
+		
+		<div class="replyArea">
+			<div class="replyWriteArea">
+				<table>
+					<tr>
+						<td>댓글 작성</td>
+						<td><textarea rows="3" cols="80" id="replyContent" style="resize: none;"></textarea></td>
+						<td><button id="addReply">댓글 등록</button></td>
+					</tr>
+				</table>
+			</div>
+			
+			<div id="replySelectArea">
+				<table id="replySelectTable">
+					<% if(list.isEmpty()){ %>
+						<tr><td colspan="3">댓글이 없습니다.</td></tr>
+					<%} else{ %>
+						<% for(int i = 0; i < list.size(); i++){ %>
+							<tr>
+								<td width="100px"><%= list.get(i).getNickname() %></td>
+								<td width="400px"><%= list.get(i).getReplyContent() %></td>
+								<td width="200px"><%= list.get(i).getModifyDate() %></td>
+							</tr>
+						<% } %>
+					<% } %>
+				</table>
+			</div>
+		</div>
+		
 	</div>
 	<script>
 		function deleteBoard() {
@@ -77,6 +110,42 @@
 				$('#detailForm').submit();
 			}
 		}
+		
+		$('#addReply').on('click', function() {
+			var writer = '<%= loginUser.getUserId() %>';
+			var content = $('#replyContent').val();
+			var bId = <%= b.getBoardId() %>;
+			
+			$.ajax({
+				url: 'insertReply.bo',
+				data:{writer:writer, content:content, bId:bId},
+				success: function(data) {
+					console.log(data);
+					
+					$replyTable = $('#replySelectTable');
+					$replyTable.html('');
+					
+					for(var i in data){
+						var $tr = $('<tr>');
+						var $writerTd = $('<td>').text(data[i].nickname).css('width', '100px');
+						var $contentTd = $('<td>').text(data[i].replyContent).css('width', '400px');
+						var $dateTd = $('<td>').text(data[i].modifyDate).css('width', '200px');
+						
+						$tr.append($writerTd);
+						$tr.append($contentTd);
+						$tr.append($dateTd);
+						$replyTable.append($tr);
+					}
+					
+					$('#replyContent').val('');
+					
+					
+				},
+				error: function(data) {
+					console.log(data + "ee");
+				}
+			});
+		});
 	</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
+import board.model.vo.Reply;
 
 /**
  * Servlet implementation class BoardDetailServlet
@@ -40,9 +42,12 @@ public class BoardDetailServlet extends HttpServlet {
 			
 			Board b = new BoardService().selectBoard(bId, upd);
 			
+			ArrayList<Reply> list = new BoardService().selectReplyList(bId);
+			
 			if(b != null) {
 				page = "WEB-INF/views/board/boardDetail.jsp";
 				request.setAttribute("b", b);
+				request.setAttribute("list", list);
 			} else {
 				page = "WEB-INF/views/common/errorPage.jsp";
 				request.setAttribute("msg", "게시글 상세보기 실패");

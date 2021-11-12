@@ -1,12 +1,14 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import member.model.service.MemberService;
 
@@ -33,11 +35,17 @@ public class CheckIdServlet extends HttpServlet {
 		
 		int result = new MemberService().checkId(inputId); // 있냐 없냐만 중요하기 때문에 쿼리에 COUNT 사용
 		
-		request.setAttribute("result", result);
-		request.setAttribute("checkedId", inputId);
-		// 멈춰 있는 상태가 아니라 중복 확인 후 새 창을 불러오기 때문에 입력한 값이 날아가버림 -> 입력한 값이 날아가지 않게 미리 저장해둠
+//		request.setAttribute("result", result);
+//		request.setAttribute("checkedId", inputId);
+//		// 멈춰 있는 상태가 아니라 중복 확인 후 새 창을 불러오기 때문에 입력한 값이 날아가버림 -> 입력한 값이 날아가지 않게 미리 저장해둠
+//		
+//		request.getRequestDispatcher("WEB-INF/views/member/checkIdForm.jsp").forward(request, response);
 		
-		request.getRequestDispatcher("WEB-INF/views/member/checkIdForm.jsp").forward(request, response);
+		// ajax 사용, 객체가 아니기 때문에 JSON 사용하지 않아도 됨
+		PrintWriter out = response.getWriter();
+		out.println(result);
+		out.flush();
+		out.close();
 	}
 
 	/**

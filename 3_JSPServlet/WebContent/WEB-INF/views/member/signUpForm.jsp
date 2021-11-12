@@ -10,7 +10,7 @@
 			width: 48%; height: 450px; background-color: rgba(255, 255, 255, 0.4); border: 5px solid white;
 			margin-left: auto; margin-right: auto; margin-top: 5%;
 		}
-		#idCheck, #nickCheck{border-radius: 15px; color: white; background: #FFD8D8;}
+		#idCheck, #nickCheck, #emailCheck{border-radius: 15px; color: white; background: #FFD8D8;}
 		#joinForm td {text-align: right;}
 		#joinForm tr:nth-child(1) > td:nth-child(3),
 			#joinForm tr:nth-child(5) > td:nth-child(3){text-align: left;}
@@ -27,12 +27,15 @@
 		<br>
 		<h2 align="center">회원가입</h2>
 		
-		<form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm">
+		<form action="<%= request.getContextPath() %>/insert.me" method="post" id="joinForm" name="joinForm" onsubmit="return insertValidate();">
 			<table>
 				<tr>
 					<td width="200px"><label class="must">*</label> 아이디</td>
-					<td><input type="text" maxlength="13" name="joinUserId" required></td>
-					<td width="200px"><input type="button" id="idCheck" value="중복확인"></td>
+					<td><input type="text" maxlength="13" name="joinUserId" id="joinUserId" required></td>
+					<td width="200px">
+<!-- 						<input type="button" id="idCheck" value="중복확인"> -->
+						<label id="idResult"></label>
+					</td>
 				</tr>
 				<tr>
 					<td><label class="must">*</label> 비밀번호</td>
@@ -60,8 +63,8 @@
 				</tr>
 				<tr>
 					<td>이메일</td>
-					<td><input type="email" name="email"></td>
-					<td></td>
+					<td><input type="email" name="email" id="email"></td>
+					<td><input type="button" id="emailCheck" value="이메일 확인"></td>
 				</tr>
 				<tr>
 					<td>주소</td>
@@ -98,13 +101,73 @@
 	</div>
 	
 	<script>
-		document.getElementById('idCheck').onclick = function() {
-			window.open('checkIdForm.me', 'idCheckForm', 'width=500, height=300');
+// 		document.getElementById('idCheck').onclick = function() {
+// 			window.open('checkIdForm.me', 'idCheckForm', 'width=500, height=300');
+// 		}
+		
+// 		document.getElementById('nickCheck').onclick = function() {
+// 			window.open('checkNickForm.me', 'nickCheckForm', 'width=500, height=300');
+// 		}
+
+		var isUsable = false; // id 사용 가능 여부
+		var isIdChecked = false; // id 체크 여부
+		
+		$('#joinUserId').on('change paste keyup', function() {
+			isIdChecked = false; // 바꿨으면 다시 체크해야 함
+		});
+		
+		$('#joinUserId').change(function() {
+			var userId = $('#joinUserId');
+			
+			if(!userId || userId.val().length < 4){
+				alert('아이디는 최소 4자리 이상이어야 합니다.');
+				userId.focus();
+			} else {
+				$.ajax({
+					url: 'checkId.me', // 이미 아이디 검사를 위해 만들어 놓은 url 사용
+					data: {inputId:userId.val()},
+					success: function(data) {
+						console.log(data);
+						if(data.trim() == '0'){
+							$('#idResult').text('사용 가능합니다.');
+							$('#idResult').css({'color':'green', 'float':'left', 'display':'inline-block'});
+							isUsable = true;
+							isIdChecked = true;
+						} else{
+							$('#idResult').text('사용 불가능합니다.');
+							$('#idResult').css({'color':'red', 'float':'left', 'display':'inline-block'});
+							isUsable = false;
+							userId.focus();
+						}
+					},
+					error: function(data) {
+						console.log(data);
+					}
+				});
+			}
+		});
+		
+		function insertValidate(){
+			if(isUsable && isIdchecked){
+				return true;
+			} else{
+				alert('아이디 중복을 확인해주세요');
+				return false;
+			}
 		}
 		
-		document.getElementById('nickCheck').onclick = function() {
-			window.open('checkNickForm.me', 'nickCheckForm', 'width=500, height=300');
-		}
+		$('#emailCheck').on('click', function() {
+			$.ajax({
+					url: 'confirmMail.me',
+					data: {email:$('#email').val()},
+					success: function(data) {
+						console.log(data);
+					},
+					error: function(data) {
+						console.log(data);
+					}
+			});
+		});
 	</script>
 </body>
 </html>
