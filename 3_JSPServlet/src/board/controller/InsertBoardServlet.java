@@ -51,7 +51,7 @@ public class InsertBoardServlet extends HttpServlet {
 			response.sendRedirect("list.bo");
 		} else {
 			request.setAttribute("msg", "게시글 작성 실패");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

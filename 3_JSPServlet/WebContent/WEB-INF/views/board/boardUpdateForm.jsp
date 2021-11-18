@@ -43,6 +43,14 @@
 						<th>분야<input type="hidden" name="bId" value="<%= board.getBoardId() %>"></th>
 						<td>
 							<select name="category">
+<!-- 								<option>--------</option> -->
+<!-- 								<option value="10">공통</option> -->
+<!-- 								<option value="20">운동</option> -->
+<!-- 								<option value="30">등산</option> -->
+<!-- 								<option value="40">게임</option> -->
+<!-- 								<option value="50">낚시</option> -->
+<!-- 								<option value="60">요리</option> -->
+<!-- 								<option value="70">기타</option> -->
 								<option>--------</option>
 								<option value="10" <%= checked[0] %>>공통</option>
 								<option value="20" <%= checked[1] %>>운동</option>
