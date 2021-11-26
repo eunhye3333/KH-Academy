@@ -69,19 +69,10 @@ public class EmployeeDAO {
 				int sal = rset.getInt("SAL");
 				int comm = rset.getInt("COMM");
 				int deptNo = rset.getInt("DEPTNO");
-				// 위의 내용은 SELECT 결과 ResultSet의 컬럼명을 가지고 오는 것임, 해당 테이블의 컬럼명을 그대로 가지고 오는것이 아님
 				
 				Employee emp = new Employee(empNo, empName, job, mgr, hireDate, sal, comm, deptNo);
 				list.add(emp);
 			}
-			
-//			for(Employee e : list) { // 잘 출력되는지 확인 -> 출력은 View에서 해야 하기 때문에 여기에서 하면 안 됨
-//				System.out.println(e);
-//			}
-			
-			// 6. 자원 반납 -> 에러가 나는 등 어떤 상황이 벌어져도 꼭 해줘야 함
-			// 열린 순서가 아니라 거꾸로 닫아 줘야 함 (ResultSet -> Statement -> Connection)
-			// 따라서 이 아래에 있으면 에러가 나는 경우 close까지 도달하지 않을 수 있음 -> finally 구문에서 close 해줘야 함
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
