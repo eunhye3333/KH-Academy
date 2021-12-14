@@ -14,7 +14,7 @@
 	.loginTable{text-align: right; float: right;}
 	#logoutBtns>a{text-decoration: none; color: black;}
 	#logoutBtns>a:hover{text-decoration: underline; font-weight: bold;}
-	.nav-area{backgrouns: black; height: 50px;}
+	.nav-area{background: black; height: 50px;}
 	.menu{
 		display: table-cell; width: 250px; height: 50px; text-align:center;
 		vertical-align: middle; font-size: 20px; background: black; color: white;
