@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 프레임워크가 객체를 만드는 경우 annotation을 사용하겠다 (mvc관련 객체), 해당 부분이 존재하지 않으면 annotation 인식 불가능 -->
+	<mvc:annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 
+		webapp 아래의 resources 폴더에 접근하는 경우  해당 위치에(location) 접근할 것이며, 이름은(mapping) 다음과 같이 정한다
+		원래대로면 컨트롤러가 처리를 하여야 되는데, 컨트롤러의 처리가 필요없이 접근할 수 있도록 해줌
+	 -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 객체를 생성해 주는 태그(InternalResourceViewResolver) -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- property라는 태그는 setter를 이용해 값을 넣음 -->
+		<property name="prefix" value="/WEB-INF/views/member/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 
+		com.kh.spring 안에 있는 모든 요소들을 활성화시키겠다
+		annotation을 지정해도 해당 요소들을 읽어들일 수 없으면(활성화할 수 없으면) 사용 불가능
+		따라서 해당 부분의 경우 사용할 부분에 대해서만 제한해도 상관없음(com.kh.spring.member)
+	 -->
+	<context:component-scan base-package="com.kh.spring" />
+
+</beans>
