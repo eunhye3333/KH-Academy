@@ -28,4 +28,21 @@ public class BoardDAO {
 		return sqlSession.insert("boardMapper.insertBoard", b);
 	}
 
+	public int addReadCount(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("boardMapper.addReadCount", bId);
+	}
+
+	public Board selectBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("boardMapper.selectBoard", bId);
+	}
+
+	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.updateBoard", b);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.delete("boardMapper.deleteBoard", bId);
+	}
+
+
 }

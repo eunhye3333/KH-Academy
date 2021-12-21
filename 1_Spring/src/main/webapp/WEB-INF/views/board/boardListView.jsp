@@ -20,7 +20,7 @@
 	<h3 align="center">총 게시글 갯수 : ${ pi.listCount }</h3>
 	
 	<table border="1" id="tb">
-		<tr style="background: yellowgreen;">
+		<tr style="background: yellowgreen;" class="listLine">
 			<th>번호</th>
 			<th width="300">제목</th>
 			<th>작성자</th>
@@ -29,7 +29,7 @@
 			<th>첨부파일</th>
 		</tr>
 		<c:forEach var="b" items="${ list }">
-			<tr>
+			<tr class="listLine">
 				<td align="center">${ b.boardId }</td>
 				
 				<td align="left">
@@ -107,5 +107,18 @@
 			</td>
 		</tr>
 	</table>
+	
+	<script>
+		$(function() {
+			$('#tb .listLine td').mouseenter(function() {
+				$(this).parent().css({'color':'yellowgreen', 'font-weight':'bold', 'cursor':'pointer'});
+			}).mouseout(function() {
+				$(this).parent().css({'color':'black', 'font-weight':'normal'});
+			}).click(function() {
+				var bId = $(this).parent().children().eq(0).text();
+				location.href="bdetail.bo?bId=" + bId + '&page=' + ${pi.currentPage};
+			});
+		});
+	</script>
 </body>
 </html>

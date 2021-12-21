@@ -45,7 +45,7 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" value="등록 하기"> &nbsp;
-					<button onclick="location.href='blist.bo'">목록으로</button>
+					<input type="button" onclick="location.href='blist.bo'" value="목록으로">
 				</td>
 			</tr>
 		</table>

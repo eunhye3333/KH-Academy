@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -121,5 +123,88 @@ public class BoardController {
 		}
 		
 		return renameFileName;
+	}
+	
+	@RequestMapping("bdetail.bo")
+	public ModelAndView boardDetail(@RequestParam("page") int page, @RequestParam("bId") int bId, @RequestParam(value = "upd", required = false) String upd, ModelAndView mv) {
+		Board b = bService.selectBoard(bId, upd);
+		
+		if(b != null) {
+			mv.addObject("b", b);
+			mv.addObject("page", page); // ModelAndView를 반환하기 때문에 메소드 체이닝으로 엮어서 써도 됨
+			mv.setViewName("boardDetailView");
+		} else {
+			throw new BoardException("게시글 상세 조회에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("bupView.bo")
+	public String boardUpdateView(@RequestParam("page") int page, @RequestParam("bId") int bId, @RequestParam(value = "upd", required = false) String upd, Model model) {
+		
+		// 조회수가 올라가지 않게 설정해주어야 함
+		Board b = bService.selectBoard(bId, upd);
+		
+		model.addAttribute("b", b).addAttribute("page", page); 
+		
+		return "boardUpdateForm";
+	}
+	
+	@RequestMapping("bupdate.bo")
+	public String updateBoard(@ModelAttribute Board b, @RequestParam("reloadFile") MultipartFile reloadFile, @RequestParam("page") int page, 
+							  HttpServletRequest request, Model model) {
+		
+		if(reloadFile != null && !reloadFile.isEmpty()) { // 수정할 파일이 존재하는 경우
+			// 수정할 파일 존재 + 기존 파일 존재 = 기존 파일을 삭제해야 함
+			if(b.getRenameFileName() != null) { // 기존 파일이 존재하는 경우
+				deleteFile(b.getRenameFileName(), request);
+			}
+			
+			String renameFileName = saveFile(reloadFile, request);
+			
+			if(renameFileName != null) {
+				b.setOriginalFileName(reloadFile.getOriginalFilename());
+				b.setRenameFileName(renameFileName);
+			}
+		}
+		
+		int result = bService.updateBoard(b);
+
+		if(result > 0) {
+			model.addAttribute("page", page);
+		} else {
+			throw new BoardException("게시글 등록을 실패하였습니다.");
+		}
+		
+		return "redirect:bdetail.bo?bId=" + b.getBoardId();
+	}
+	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "/buploadFiles";
+		
+		File f = new File(savePath + "/" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}
+	}
+	
+	@RequestMapping("bdelete.bo")
+	public String deleteBoard(@RequestParam("bId") int bId, HttpServletRequest request) {
+		Board b = bService.selectBoard(bId, null);
+		
+		if(b.getOriginalFileName() != null) { // 첨부파일이 존재하면 첨부파일 삭제
+			deleteFile(b.getRenameFileName(), request);
+		}
+		
+		int result = bService.deleteBoard(bId);
+		
+		if(result > 0) {
+			return "redirect:blist.bo";
+		} else {
+			throw new BoardException("게시글 삭제에 실패하였습니다."); 
+		}
 	}
 }
