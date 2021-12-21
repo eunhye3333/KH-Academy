@@ -4,14 +4,17 @@
 	
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
+		<!-- value의 NULL은 소문자로 작성하는 경우 에러 발생 -->
 	</settings>
 	
 	<typeAliases>
 		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
 	</mappers>
 	
 
