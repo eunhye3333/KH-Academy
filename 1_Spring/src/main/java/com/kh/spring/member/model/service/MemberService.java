@@ -14,11 +14,11 @@ public interface MemberService {
 
 //	int updatePwd(Member m);
 
+//	String pwdCheck(Member m);
+
 	int updatePwd(HashMap<String, String> map);
 
 	int deleteMember(String id);
 
-//	String pwdCheck(Member m);
-
-
+	int duplicateId(String id);
 }

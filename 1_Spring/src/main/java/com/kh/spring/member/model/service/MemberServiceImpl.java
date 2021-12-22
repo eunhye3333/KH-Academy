@@ -54,5 +54,10 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteMember(String id) {
 		return mDAO.deleteMember(sqlSession, id);
 	}
+
+	@Override
+	public int duplicateId(String id) {
+		return mDAO.duplicateId(sqlSession, id);
+	}
 	
 }

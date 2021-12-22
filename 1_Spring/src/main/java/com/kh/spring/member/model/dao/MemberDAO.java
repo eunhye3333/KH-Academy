@@ -30,13 +30,18 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updatePassword", map);
 	}
 
+	//	public String pwdCheck(SqlSessionTemplate sqlSession, Member m) {
+//		return sqlSession.selectOne("memberMapper.pwdCheck", m);
+//	}
+
 	public int deleteMember(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("memberMapper.deleteMember", id);
 	}
 
+	public int duplicateId(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("memberMapper.duplicateId", id);
+	}
 
-//	public String pwdCheck(SqlSessionTemplate sqlSession, Member m) {
-//		return sqlSession.selectOne("memberMapper.pwdCheck", m);
-//	}
+
 
 }

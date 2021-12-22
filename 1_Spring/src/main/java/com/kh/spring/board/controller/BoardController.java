@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,7 +23,9 @@ import com.kh.spring.board.model.exception.BoardException;
 import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.board.model.vo.PageInfo;
+import com.kh.spring.board.model.vo.Reply;
 import com.kh.spring.common.Pagination;
+import com.kh.spring.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -206,5 +209,26 @@ public class BoardController {
 		} else {
 			throw new BoardException("게시글 삭제에 실패하였습니다."); 
 		}
+	}
+	
+	@RequestMapping("addReply.bo")
+	@ResponseBody
+	public String addReply(@RequestParam("replyContent") String replyContent, @RequestParam("refBoardId") int refBoardId, HttpSession session) {
+		
+		String replyWriter = ((Member)session.getAttribute("loginUser")).getId();
+		
+		Reply r = new Reply();
+		r.setReplyContent(replyContent);
+		r.setRefBoardId(refBoardId);
+		r.setReplyWriter(replyWriter);
+		
+		int result = bService.addReply(r);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			throw new BoardException("댓글 등록에 실패하였습니다."); 
+		}
+		
 	}
 }

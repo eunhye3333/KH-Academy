@@ -10,6 +10,7 @@
 <style type="text/css">
 	#boardDetailTable{width: 800px; margin: auto; border-collapse: collapse; border-left: hidden; border-right: hidden;}
 	#boardDetailTable tr td{padding: 5px;}
+	.replyTable{margin: auto; width: 500px;}
 </style>
 </head>
 <body>
@@ -93,6 +94,40 @@
 				location.href='${ bdelete }';
 			}
 		}
+	</script>
+	
+	<br><br>
+	
+	<table class="replyTable">
+		<tr>
+			<td><textarea cols="55" rows="3" id="rContent"></textarea></td>
+			<td><button id="rSubmit">등록하기</button>
+		</tr>
+	</table>
+	
+	<table class="replyTable" id="rtb">
+		<thead>
+			<tr><td colspan="2"><b id="rCount"></b></td></tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+	
+	<script>
+		$('#rSubmit').click(function() {
+			var rContent = $('#rContent').val();
+			var refBoardId = ${ b.boardId };
+			
+			$.ajax({
+				url: 'addReply.bo',
+				data: {replyContent:rContent, refBoardId:refBoardId},
+				success: function(data) {
+					console.log(data);
+				}, 
+				error: function(data) {
+					console.log(data);
+				}
+			});
+		});
 	</script>
 </body>
 </html>

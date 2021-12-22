@@ -67,4 +67,9 @@
 		set board_status = 'N'
 		where board_id = #{bId}
 	</update>
+	
+	<insert id="addReply">
+		insert into reply
+		values(SEQ_RID.NEXTVAL, #{replyContent}, #{refBoardId}, #{replyWriter}, SYSDATE, SYSDATE, DEFAULT)
+	</insert>
 </mapper>
