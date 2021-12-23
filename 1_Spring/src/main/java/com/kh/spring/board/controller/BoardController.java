@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.spring.board.model.exception.BoardException;
 import com.kh.spring.board.model.service.BoardService;
 import com.kh.spring.board.model.vo.Board;
@@ -213,13 +217,13 @@ public class BoardController {
 	
 	@RequestMapping("addReply.bo")
 	@ResponseBody
-	public String addReply(@RequestParam("replyContent") String replyContent, @RequestParam("refBoardId") int refBoardId, HttpSession session) {
+	public String addReply(/*@RequestParam("replyContent") String replyContent, @RequestParam("refBoardId") int refBoardId,*/@ModelAttribute Reply r, HttpSession session) {
 		
 		String replyWriter = ((Member)session.getAttribute("loginUser")).getId();
 		
-		Reply r = new Reply();
-		r.setReplyContent(replyContent);
-		r.setRefBoardId(refBoardId);
+//		Reply r = new Reply();
+//		r.setReplyContent(replyContent);
+//		r.setRefBoardId(refBoardId);
 		r.setReplyWriter(replyWriter);
 		
 		int result = bService.addReply(r);
@@ -229,6 +233,89 @@ public class BoardController {
 		} else {
 			throw new BoardException("댓글 등록에 실패하였습니다."); 
 		}
+	}
+	
+//	@RequestMapping(value="rList.bo", produces="application/json; charset=UTF-8")
+//	@ResponseBody
+//	public String replyList(@RequestParam("boardId") int bId) {
+//		
+//		ArrayList<Reply> list = bService.selectReplyList(bId);
+//		
+//		JSONArray jArr = new JSONArray();
+//		
+//		if(list != null) {
+//			for(Reply r : list) {
+//				JSONObject job = new JSONObject();
+//				job.put("replyId", r.getReplyId());
+//				job.put("replyContent", r.getReplyContent());
+//				job.put("refBoardId", r.getRefBoardId());
+//				job.put("replyWriter", r.getReplyWriter());
+//				job.put("nickName", r.getNickName());
+////				job.put("replyCreateDate", r.getReplyCreateDate());
+////				job.put("replyModifyDate", r.getReplyModifyDate());
+//				
+//				// Date 타입은 int나 String 외의 다른 타입은 인지를 못 함 -> String으로 바꿔주면 해결됨
+//				job.put("replyCreateDate", String.format("%1$tY-%1$tm-%1$td", r.getReplyCreateDate()));
+//				job.put("replyModifyDate", String.format("%1$tY-%1$tm-%1$td", r.getReplyModifyDate()));
+//				job.put("replyStatus", r.getReplyStatus());
+//				
+//				jArr.add(job);
+//			}
+//			
+//			return jArr.toJSONString();
+//			
+//		} else {
+//			throw new BoardException("댓글 목록 조회에 실패하였습니다.");
+//		}
+//	}
+	
+	// GSON 사용
+	@RequestMapping("rList.bo")
+	public void replyList(@RequestParam("boardId") int bId, HttpServletResponse response) {
+		
+		ArrayList<Reply> list = bService.selectReplyList(bId);
+		
+		if(list != null) {
+			
+			response.setContentType("application/json; charset=UTF-8");
+			
+			GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd"); // GSON의 날짜 처리 방식이 달라서 포맷을 지정해주기 위함
+			
+			Gson gson = gb.create();
+			try {
+				gson.toJson(list, response.getWriter());
+			} catch (JsonIOException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		} else {
+			throw new BoardException("댓글 목록 조회에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("topList.bo")
+	public void topList(HttpServletResponse response) {
+		ArrayList<Board> list = bService.topList();
+		
+		if(list != null) {
+			response.setContentType("application/json; charset=UTF-8");
+			
+			GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+			Gson gson = gb.create();
+			
+			try {
+				gson.toJson(list, response.getWriter()); // try catch가 아니라 throws 해도 됨
+			} catch (JsonIOException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			throw new BoardException("조회수 Top 5 게시글 조회에 실패하였습니다.");
+		}
 		
 	}
+	
 }

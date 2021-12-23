@@ -72,4 +72,36 @@
 		insert into reply
 		values(SEQ_RID.NEXTVAL, #{replyContent}, #{refBoardId}, #{replyWriter}, SYSDATE, SYSDATE, DEFAULT)
 	</insert>
+	
+	<select id="selectReplyList" resultMap="replyResultSet">
+		select *
+		from reply
+			 join member on (id = reply_writer)
+		where ref_board_id = #{bId}
+		and reply_status = 'Y'
+		order by reply_id desc
+	</select>
+	
+	<resultMap type="Reply" id="replyResultSet">
+		<id column="REPLY_ID" property="replyId"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REF_BOARD_ID" property="refBoardId"/>
+		<result column="REPLY_WRITER" property="replyWriter"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="REPLY_CREATE_DATE" property="replyCreateDate"/>
+		<result column="REPLY_MODIFY_DATE" property="replyModifyDate"/>
+		<result column="REPLY_STATUS" property="replyStatus"/>
+	</resultMap>
+	
+	<select id="topList" resultMap="boardResultSet">
+		<![CDATA[
+		select rownum, tb.*
+		from (select *
+			  from board
+			 	   join member on (board_writer = id)
+			  order by board_count desc) tb
+		where board_status = 'Y' 
+			  and rownum <= 5
+		]]>
+	</select>
 </mapper>

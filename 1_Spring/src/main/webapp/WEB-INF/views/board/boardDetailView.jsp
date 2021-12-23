@@ -122,11 +122,72 @@
 				data: {replyContent:rContent, refBoardId:refBoardId},
 				success: function(data) {
 					console.log(data);
+					
+					if(data == 'success'){
+						getReplyList(); // 댓글 작성에 성공 시 다시 댓글 리스트를 불러오는 코드
+						$('#rContent').val('');
+					}
 				}, 
 				error: function(data) {
 					console.log(data);
 				}
 			});
+		});
+		
+		function getReplyList() {
+			var bId = ${ b.boardId };
+			
+			$.ajax({
+				url: 'rList.bo',
+				data:{boardId:bId},
+				success: function(data) {
+					console.log(data);
+					
+					$tableBody = $('#rtb tbody');
+					$tableBody.html(''); // 위에 있던 부분이 중복되지 않게 지워줌
+					
+					var $tr;
+					var $writer;
+					var $content;
+					var $date;
+					
+					$('#rCount').text('댓글 (' + data.length + ")");
+					
+					if(data.length > 0){
+						for(var i in data){
+							$tr = $('<tr>');
+							$writer = $('<td width="100">').text(data[i].nickName);
+							$content = $('<td>').text(data[i].replyContent);
+							$date = $('<td width="100">').text(data[i].replyCreateDate);
+							
+							$tr.append($writer);
+							$tr.append($content);
+							$tr.append($date);
+							
+							$tableBody.append($tr);
+						}
+					}else{
+							$tr = $('<tr>');
+							$content = $('<td colspan="3">').text("등록된 댓글이 없습니다.");
+							
+							$tr.append($content);
+							$tableBody.append($tr);
+					}
+				},
+				error: function(request, error) {
+					console.log(request.status);
+					console.log(request.responseText);
+					console.log(error);
+				}
+			})
+		}
+		
+		$(function() {
+			getReplyList();
+			
+			setInterval(function() {
+				getReplyList(); // 다른 사람이 댓글을 작성했을 때도 알아서 새로고침돼서 보여줄 수 있게 설정 
+			}, 5000);
 		});
 	</script>
 </body>

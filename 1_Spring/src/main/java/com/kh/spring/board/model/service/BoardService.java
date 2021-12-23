@@ -22,4 +22,8 @@ public interface BoardService {
 
 	int addReply(Reply r);
 
+	ArrayList<Reply> selectReplyList(int bId);
+
+	ArrayList<Board> topList();
+
 }
