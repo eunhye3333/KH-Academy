@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ import com.kh.spring.member.model.vo.Member;
 @SessionAttributes("loginUser")
 @Controller // 객체 생성, Controller의 성질을 가질 수 있도록 설정
 public class MemberController {
+	
+	private Logger logger = LoggerFactory.getLogger(MemberController.class); // logger 생성
 	
 //	private MemberServiceImpl mService = new MemberServiceImpl();
 	@Autowired // 의존성 주입
@@ -180,6 +184,7 @@ public class MemberController {
 	
 	@RequestMapping("enrollView.me")
 	public String enrollView() {
+		logger.debug("회원 등록 페이지");
 		return "memberJoin";
 	}
 	
@@ -220,6 +225,7 @@ public class MemberController {
 		
 		if(loginMember != null && bcrypt.matches(m.getPwd(), loginMember.getPwd())) { // 비밀번호 평문과 암호화된 비밀번호가 같은지 확인해주는 메소드
 			model.addAttribute("loginUser", loginMember); 
+			logger.info(loginMember.getId());
 			return "redirect:home.do";
 		} else {
 			throw new MemberException("로그인에 실패하였습니다");
