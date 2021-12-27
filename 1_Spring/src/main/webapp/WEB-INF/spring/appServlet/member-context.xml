@@ -41,4 +41,11 @@
 			<bean id="loggerInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/login.me"/>
+			<bean id="memberLoginInterceptor" class="com.kh.spring.common.interceptor.MemberLoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

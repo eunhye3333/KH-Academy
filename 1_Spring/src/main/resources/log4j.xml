@@ -112,10 +112,21 @@
 	<logger name="com.kh.spring.member.controller.MemberController" additivity="false">
 		<level value="debug"/>
 		<appender-ref ref="myConsole"/>
+<!-- 		<appender-ref ref="myDailyRollingFile"/> -->
+	</logger>
+	
+	<logger name="com.kh.spring.common.interceptor.MemberLoginInterceptor">
+		<level value="info"/>
 		<appender-ref ref="myDailyRollingFile"/>
 	</logger>
 	
 	<logger name="com.kh.spring.common.interceptor.TestInterceptor" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="myConsole"/>
+	</logger>
+	
+	<!-- AOP logger 등록 -->
+	<logger name="com.kh.spring.common.aop" additivity="false">
 		<level value="debug"/>
 		<appender-ref ref="myConsole"/>
 	</logger>
