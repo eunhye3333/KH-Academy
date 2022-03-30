@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>구매 정보</title>
+<style>
+	#area{border: 1px solid black; width: 450px; height: 200px;}
+</style>
+</head>
+<body>
+	<h1>Practice4</h1>
+	<fieldset>
+		<legend>구매 정보</legend>
+		<ul>
+			<li>구매자* : <input type="text" id="consumer" placeholder="구매자의 이름을 입력하세요"></li>
+			<li>상품명* : <input type="text" id="product" placeholder="구매 상품명을 입력하세요"></li>
+			<li>가격* : <input type="text" id="cost" placeholder="구매 가격을 입력하세요"></li>
+			<li>구매 수량* : <input type="number" id="amount" placeholder="10~100" min="10" max="100" step="10"></li>
+			<li>납품등급* : <input type="range" id="grade" min="1" max="9" step="2"></li>
+			<li>기타사항 : <textarea id="etc" rows="5" cols="30" style="resize: none"></textarea></li>
+		</ul>
+	</fieldset>
+	
+	<br>
+	
+	<button onclick="buyList();">입력값 출력하기</button>
+	
+	<br><br>
+	
+	<div id="area"></div>
+	<script>
+		function buyList() {
+			var area = document.getElementById('area');
+			var consumer = document.getElementById('consumer').value;
+			var product = document.getElementById('product').value;
+			var cost = document.getElementById('cost').value;
+			var amount = document.getElementById('amount').value;
+			var grade = document.getElementById('grade').value;
+			var etc = document.getElementById('etc').value;
+			
+			if(consumer != '' && product != '' && cost != '' && amount != '' && grade != ''){
+				area.innerHTML = "구매자명 : " + consumer + "<br>"
+							   + "상품명 : " + product + "<br>"
+							   + "가격 : " + cost + "만원" + "<br>" 
+							   + "구매 수량 : " + amount + "개" + "<br>"
+							   + "납품등급 : " + grade + "등급" + "<br>"
+							   + "기타사항 : " + etc + "<br>";
+				
+			} else{
+				alert('*은 필수 입력값입니다.');
+			}
+			
+		}
+	</script>
+</body>
+</html>

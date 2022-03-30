@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>내장객체</h1>
+	<h2>Object객체</h2>
+	<p>	
+		자바스크립트의 가장 기본적인 내장 객체<br>
+		모든 객체가 초기에 상속하는 객체이며 자바스크립트 객체 모델의 핵심적인 중요 메소드 제공
+	</p>
+	<button onclick="test1();">실행확인</button>
+	<script>
+		function test1() {
+			var obj1 = {};
+			var obj2 = new Object(); // 객체 생성 가능
+			console.log(obj1);
+			console.log(obj2);
+		}
+	</script>
+	
+	<h3>Object객체의 기본 메소드</h3>
+	<h4>hasOwnProperty() / propertyIsEnumerable()</h4>
+	<button onclick="test2();">실행확인</button>
+	<script>
+		function test2() {
+			var object = {
+				name: '박신우',
+				age:20
+			};
+			console.log(object);
+			// hasOwnProperty() : 객체 안에 해당 속성이 존재하는지 확인
+			console.log(object.hasOwnProperty('name')); // true
+			console.log(object.hasOwnProperty('age')); // true
+			console.log(object.hasOwnProperty('hobby')); // false
+			
+			// propertyIsEnumerable() : 속성에 반복문을 사용할 수 있는지 확인
+			console.log(object.propertyIsEnumerable('name')); // true
+			console.log(object.propertyIsEnumerable('age')); // true
+			console.log(object.propertyIsEnumerable('hobby'));  //false
+		}
+	</script>
+	
+	<h2>Number객체</h2>
+	<h3>toFixed()</h3>
+	<button onclick="test3();">실행확인</button>
+	<script>
+		function test3() {
+			var num1 = 123.456789;
+			var num2 = 123;
+			console.log('num1 : ' + num1);
+			console.log('num2 : ' + num2);
+			
+			console.log(num1.toFixed(1)); // 123.5 첫째자리에서 보이게 하겠다 -> 두 번째 자리에서 반올림
+			console.log(num1.toFixed(2)); // 123.46
+			console.log(num1.toFixed(3)); // 123.457
+			console.log(num2.toFixed(3)); // 123.000 -> 세 번째 자리까지 보이겠다고 했는데 소수 자리가 없기 때문에 000
+			console.log(num2.toFixed(0)); // 123
+// 			console.log(num2.toFixed(-1)); // 0부터 100 사이만 집어넣으라는 에러 출력됨
+			
+			console.log(typeof num2.toFixed(0)); // string -> 숫자가 아니라 문자로 반환함.숫자로 바꾸고 싶은 경우 Number 사용
+		}
+	</script>
+	
+	<h2>Date객체</h2>
+	<button onclick="test4();">실행확인</button>
+	<script>
+		function test4() {
+			var date1 = new Date(); // 안 넣는 경우 오늘 날짜
+			console.log(date1);
+			var date2 = new Date('September 24');
+			console.log(date2);
+			var date3 = new Date('September 24, 2021');
+			console.log(date3);
+			var date4 = new Date('September 24, 2021 12:48:10');
+			console.log(date4);
+			var date5 = new Date(2021, 9, 19, 12, 49, 45);
+			console.log(date5);
+			
+			// 일부분만 뽑아서 가져올 수 있음
+			console.log(date1.getFullYear()); 
+			console.log(date1.getMonth());
+			console.log(date1.getDate());
+			console.log(date1.getDay()); // 요일
+			console.log(date1.getHours());
+			console.log(date1.getMinutes());
+			console.log(date1.getSeconds());
+			console.log(date1.getMilliseconds());
+			console.log(date1.getTimezoneOffset());
+			console.log(date1.getTime()); // 1634619952879
+			// 2021 10 19 화 14:05:43:584
+			
+			var time = new Date(1634619952879);
+			console.log(time); // 받아놓은 시간이 찍힘
+			
+			// 날짜 사이의 간격 구하기
+			var now = new Date();
+			var start = new Date(2021, 7, 4);
+			var end = new Date('January 25, 2022');
+			
+			var interval1 = now.getTime() - start.getTime();
+			var interval2 = end.getTime() - now.getTime();
+			var from = interval1 / (1000 * 60 * 60 * 24);
+			//                            ------------ 하루
+			var to = interval2 / (1000 * 60 * 60 * 24);
+			
+			console.log('개강한지 ' + from + '일 지났습니다.');
+			console.log('종강까지 ' + to + '일 남았습니다.');
+		}
+	</script>
+</body>
+</html>

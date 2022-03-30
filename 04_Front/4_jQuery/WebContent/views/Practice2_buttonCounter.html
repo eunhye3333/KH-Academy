@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>버튼 카운터</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style>
+	.data-test{
+        width:100px; height:100px;
+        margin-right:10px;
+        display:inline-block;
+        font-size:30px;
+        background: rgb(200, 200, 0);
+    }
+</style>
+</head>
+<body>
+	<h1>버튼 카운트</h1>
+	<!-- 
+		한 버튼 당 총 10번을 누를 수 있으며 한 번 누를 때마다 
+		버튼 숫자는 올라가면서 색은 옅어지게(투명해지게)하세요
+		(즉, 10번이 되면 배경은 완전히 투명해지게) 
+		이 때, 10번이 되면 해당 버튼의 이벤트는 없애세요
+	-->
+	<button id="btn1" class="data-test"> 0 </button>
+    <button id="btn2" class="data-test"> 0 </button>
+    <button id="btn3" class="data-test"> 0 </button>
+    
+    <script>
+    	var count = 0;
+    	$('.data-test').on('click', function() {
+    		count = Number($(this).text());
+    		count++;
+			$(this).text(count);
+			$(this).css('background', 'rgba(200, 200, 0,' + (1 - (count*0.1))+ ')');
+			if(count == 10){
+				$(this).off('click');			
+    		}
+		})
+    </script>
+</body>
+</html>

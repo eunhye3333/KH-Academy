@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<style>
+	.wrap, .wrap *{
+		border: 1px solid lightgray; display: block; padding: 5px; margin: 15px;
+	}
+</style>
+</head>
+<body>
+	<h1>객체 탐색</h1>
+	<h2>탐색 메소드</h2>
+	<h3>sideways 메소드</h3>
+	<div class="wrap">div(parent)
+		<p>p</p>
+		<span>span</span>
+		<h4>h4</h4>
+		<h5>h5</h5>
+		<p>p</p>
+	</div>
+	<script>
+		$(function() {
+			// siblings() : 선택된 요소와 같은 레벨(전후 상관 x)에 있는 요소 리턴(인자가 있다면 인자와 일치하는 요소 리턴)
+			console.log($('h4').siblings()); // p, span, h5, p 나랑 같은 레벨에 있는 애들아 나옴
+			$('h4').siblings().css({'color':'red', 'border':'2px solid red'});
+			$('h4').siblings('p').css({'color':'orange', 'border':'2px solid orange'}); // 인자를 넣는 경우 일치하는 인자만 리턴
+			
+			// next() : 선택된 요소와 같은 레벨의 요소 중 선택된 요소의 다음 한 개 요소만 리턴
+			$('h4').next().css({'color':'blue', 'border':'2px solid blue'});
+			// nextAll() : 선택된 요소와 같은 레벨의 요소 중 선택된 요소의 다음에 오는 모든 요소 리턴
+			$('h4').nextAll().css('font-size', '3em');
+			// nextUntil() : 선택된 요소와 같은 레벨의 요소 중 선택된 요소의 다음 요소에서부터 인자 요소 전까지 리턴(인자는 포함되지 않음)
+			$('h4').nextUntil('p').css('border', 'dashed');
+			
+			//prev() : 선택된 요소와 같은 레벨의 요소 중 선택된 요소의 이전 한 개 요소만 리턴
+			$('h4').prev().css({'background':'red', 'color':'white'});
+			//prevAll() : 선택된 요소와 같은 레벨의 요소 중 선택된 요소의 이전 모든 요소 리턴
+			$('h4').prevAll().css({'background':'beige', 'color':'red'});
+			//prevUntil() : 선택된 요소와 같은 레벨의 요소 중 선택된 요소의 이전 요소에서부터 인자 요소 전까지 리턴
+			$('h4').prevUntil('p').css('border', 'double');
+			
+		});
+	</script>
+</body>
+</html>

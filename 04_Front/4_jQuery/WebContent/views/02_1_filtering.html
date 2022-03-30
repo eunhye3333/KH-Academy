@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<h1>객체 탐색</h1>
+	<h2>필터링 메소드</h2>
+	<h4 class="test">test-a</h4>
+	<h4 class="test">test-b</h4>
+	<h4 class="test">test-c</h4>
+	<h4 class="test">test-d</h4>
+	<h4>test-e</h4>
+	<h4 class="test">test-f</h4>
+	<script>
+		$(function() {
+			// 선택자 이용
+// 			$('h4:even').css({'background':'tomato', 'color':'white'});
+			
+			// filter() 이용
+			$('h4').filter(':even').css({'background':'tomato', 'color':'white'}); // 짝수
+			$('h4').filter(':odd').css({'background':'yellowgreen', 'color':'white'}); // 홀수
+			// 첫 번째 가져오기
+			console.log($('h4').first()); // 제이쿼리는 객체들이 반환되고 자바스크립트는 태그 자체를 가지고 옴 -> 따라서 자바스크립트와 제이쿼리를 구분해서 사용 필요
+			console.log($('h4').first().text()); 
+			// text() : 태그 안의 값을 확인하거나 수정하는 경우 사용
+			$('h4').first().text($('h4').first().text() + " : 처음 요소"); // 원래 있었던 건 두고 뒤에 문자 추가
+			$('h4').last().css('font-size', '1.5em'); // 마지막에 접근
+			$('h4').eq(3).text($('h4').eq(3).text() + " : eq() 메소드로 필터링됨");
+			$('h4').not('.test').css({'background':'yellow', 'color':'black'});
+		})
+	</script>
+</body>
+</html>

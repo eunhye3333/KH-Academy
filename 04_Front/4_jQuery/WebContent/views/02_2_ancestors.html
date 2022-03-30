@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<style>
+	.wrap *{
+		border: 1px solid lightgray;
+		display: block; padding: 5px; margin: 15px;
+	}
+	.type{width: 450px;}
+</style>
+</head>
+<body>
+	<h1>객체 탐색</h1>
+	<h2>탐색 메소드</h2>
+	<h3>Ancestors메소드</h3>
+	<p>선택된 요소의 상위 요소들을 선택할 수 있는 메소드</p>
+	<div class="wrap">
+		<div class="type">div(great-grandparent)
+			<ul>ul(grandparent)
+				<li>li(direct parent)
+					<span>span</span>
+				</li>
+			</ul>
+		</div>
+		<div class="type">div(grandparent)
+			<p>p(direct parent)
+				<span>span</span>
+			</p>
+		</div>	
+	</div>
+	<script>
+		$(function() {
+			// parent() : 선택된 요소의 바로 상위 요소만 리턴
+			console.log($('span').parent()); // 부모 요소에 접근 [li, p, prevObject: S.fn.init(2)]
+			// span이 두 개가 있기 때문에 부모도 두 개 (p, li)
+			$('span').parent().css({'color':'red', 'border':'2px solid red'});
+			// li와 p가 span을 포함하고 있으므로 span까지 바뀜
+			
+			// parents() : 선택된 요소의 모든 상위 요소 리턴
+// 			$('span').parents().css({'color':'blue', 'border':'2px solid blue'}); // 전체 다 묶임
+			$('span').parents('ul').css({'color':'blue', 'border':'2px solid blue'}); 
+			// parents()에 매개변수를 넣을 수 있음, 만약 인자가 존재하면 모든 상위요소 중 해당 인자와 일치하는 부모만 리턴
+			
+			// parentsUntil() : 선택된 요소부터 지정 요소 전까지의 요소 리턴(지정 요소 포함 x)
+			$('span').parentsUntil('div').css('background', 'beige'); // span의 부모 요소를 div까지 찾음
+			
+		})
+	</script>
+</body>
+</html>
